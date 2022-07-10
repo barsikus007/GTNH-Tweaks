@@ -1,8 +1,9 @@
 # GTNH Tweaks
 
 ## JAVA
-min 1024
-min 6144
+- Xms 1024
+- Xmx 6144
+Set max threads to your CPU count
 ```bash
 -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC -XX:MaxGCPauseMillis=80 -XX:+UseStringDeduplication -XX:+UseCompressedOops -XX:+UseCodeCacheFlushing -XX:ParallelGCThreads=6
 ```
@@ -66,10 +67,10 @@ B:BloodMoonRedLight=false
 ```
 ## mods/
 ### Add
-? https://github.com/MoeBoy76/NBTEdit/releases/tag/1.7.10
-https://www.curseforge.com/minecraft/mc-mods/forge-nbtedit-for-1-7-10
-https://www.curseforge.com/minecraft/mc-mods/journeymap
-https://www.curseforge.com/minecraft/mc-mods/fullscreen-windowed-borderless-for-minecraft
+- ? https://github.com/MoeBoy76/NBTEdit/releases/tag/1.7.10
+- https://www.curseforge.com/minecraft/mc-mods/forge-nbtedit-for-1-7-10
+- https://www.curseforge.com/minecraft/mc-mods/journeymap
+- https://www.curseforge.com/minecraft/mc-mods/fullscreen-windowed-borderless-for-minecraft
 ### Remove
 journeymap-1.7.10-5.1.4p2-fairplay.jar
 
