@@ -98,18 +98,18 @@ def patch_config(config_folder: Path, dry_run: bool = True):
 
 
 def patch_mods(mods_folder: Path):
-    pass
+    print("mods patching not implemented yet, just copy files from `mods` folder to your mods folder and follow instructions in `README.md` mod section")
 
 
 def patch_resourcepacks(resourcepacks_folder: Path):
-    pass
+    print("resourcepacks patching not implemented yet, just copy files from `resourcepacks` folder to your resourcepacks folder")
 
 
 def main(minecraft_home: Path, dry_run: bool = True):
     patch_config(minecraft_home / "config", dry_run)
     patch_mods(minecraft_home / "mods")
     patch_resourcepacks(minecraft_home / "resourcepacks")
-    print("TODO path other files")
+    print("copy journeymap/config and content of local .minecraft folder to .minecraft folder")
 
 
 if __name__ == "__main__":

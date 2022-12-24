@@ -101,22 +101,20 @@ journeymap-1.7.10-5.1.4p2-fairplay.jar
 
 ## TODO
 - Generate HardcoreDarkness.cfg\Dimension Blacklist
-- Upgrade InGameInfo.xml to 2.2.0.0
-- World with debug bag
-- options.txt
+- add bug with tools to bookmarks
 - OPTIFINE
-  - optionsof.txt
   - Choose verison
   - [OptiFine](https://optifine.net/adloadx?f=OptiFine_1.7.10_HD_U_E7.jar)
   - [FastCraft 1.23](https://www.curseforge.com/minecraft/mc-mods/fastcraft/files/2292386)
 - Sync
-  - sync journeymap/data/ and TCNodeTracker/ and visualprospecting/ and saves/NEI/global/bookmarks.ini
+  - sync journeymap/data/ and TCNodeTracker/ and visualprospecting/
+  - saves/NEI/global/bookmarks.ini or config/NEI/bookmarks.ini ?
   - sync logs/ and screenshots/ and saves/
-  - check shaderpacks
-  - check saves
+  - check shaderpacks/ (choose one)
+  - check saves/
   - check invtweaks
-  - client.dat
   - servers.dat
+  - journeymap/data/ merger
 - borderless mod
 - patch faithful
 - config GT++
