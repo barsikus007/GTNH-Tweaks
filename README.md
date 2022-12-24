@@ -1,5 +1,7 @@
 # GTNH Tweaks
 
+My setup of GTNH and shitcoded python patcher for configs
+
 ## JAVA
 -Xmx6144m
 -Xmx6g
@@ -40,26 +42,30 @@ To fix my eyes at all nights at endgame
 I:Mode=0
 I:Mode=1
 S:"Dimension Blacklist"=7
-S:"Dimension Blacklist"=7,0
+S:"Dimension Blacklist"=-1,0,1,7,180
 ```
 ### InGameInfo.xml
-Normal config for IGIXML
+Blood and warp monitoring for IGIXML. Paste after these lines
 ```xml
-LINE 140:
-    <line>
-        <icon>
-            <str>AWWayofTime:weakBloodOrb</str>
-        </icon>
-        <str> $rBlood: $c{bmlp} </str>
-        <str> $rMax Blood: $c{bmmaxlp} </str>
-    </line>
-    <line>
-        <icon>
-            <str>Thaumcraft:ItemSanityChecker</str>
-        </icon>
-        <str> $rTC Warp: $5{tcwarptotal} </str>
-        <str> $r(Perm: $6{tcwarpperm}, $rSticky: $6{tcwarpsticky}, $rTemp: $6{tcwarptemp}$r)</str>
-    </line>
+            <var>lightfeet</var>
+            <str>{white})</str>
+        </line>
+```
+```xml
+        <line>
+            <icon>
+                <str>AWWayofTime:weakBloodOrb</str>
+            </icon>
+            <str> {white}Blood: {red}{bmlp} </str>
+            <str> {white}Max Blood: {red}{bmmaxlp} </str>
+        </line>
+        <line>
+            <icon>
+                <str>Thaumcraft:ItemSanityChecker</str>
+            </icon>
+            <str> {white}TC Warp: {darkpurple}{tcwarptotal} </str>
+            <str> {white}(Perm: {gold}{tcwarpperm}, {white}Sticky: {gold}{tcwarpsticky}, {white}Temp: {gold}{tcwarptemp}{white})</str>
+        </line>
 ```
 ### InGameInfoXML.cfg
 Normal config for IGIXML
@@ -104,9 +110,11 @@ journeymap-1.7.10-5.1.4p2-fairplay.jar
   - [OptiFine](https://optifine.net/adloadx?f=OptiFine_1.7.10_HD_U_E7.jar)
   - [FastCraft 1.23](https://www.curseforge.com/minecraft/mc-mods/fastcraft/files/2292386)
 - Sync
-  - sync journeymap and TCNodeTracker
+  - sync journeymap/data/ and TCNodeTracker/ and visualprospecting/ and saves/NEI/global/bookmarks.ini
+  - sync logs/ and screenshots/ and saves/
   - check shaderpacks
   - check saves
+  - check invtweaks
   - client.dat
   - servers.dat
 - borderless mod
