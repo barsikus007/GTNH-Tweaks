@@ -84,37 +84,33 @@ B:BloodMoonRedLight=false
 - [NBTEdit](https://www.curseforge.com/minecraft/mc-mods/forge-nbtedit-for-1-7-10)
 - [NBTEdit alt](https://github.com/MoeBoy76/NBTEdit/releases/tag/1.7.10)
 - [JourneyMap with radar](https://www.curseforge.com/minecraft/mc-mods/journeymap/files/all?filter-game-version=2020709689%3A4449)
-- https://www.curseforge.com/minecraft/mc-mods/fullscreen-windowed-borderless-for-minecraft
+- [Fullscreen Windowed](https://www.curseforge.com/minecraft/mc-mods/fullscreen-windowed-borderless-for-minecraft)
 - [Russian font fix](https://github.com/gamerforEA/Minecraft-ClientFixer/releases/tag/1.0)
 ### Remove
 journeymap-1.7.10-5.1.4p2-fairplay.jar
 
 ## resourcepacks/
-- [Stellar Fusion](https://s3.amazonaws.com/files.enjin.com/1172307/modules/forum/attachments/%C2%A7f%C2%A7lS%C2%A7e%C2%A7lte%C2%A76%C2%A7lll%C2%A74%C2%A7lar+%C2%A7f%C2%A7lFusion+V0.3.4_1550833036.zip)
-- [Faithful 32 Modded Edition](http://www.f32.me/old/F32-1.7.10.zip)
 - [Ztones xBR upscale to 32x](https://discord.com/channels/181078474394566657/224191655375273985/453546192794550272)
-### F32 patch
-#### Remove
-- F32-1.7.10.zip\assets\appliedenergistics2
-- F32-1.7.10.zip\assets\appliedenergistics2\textures\guis\interface.png
+- [Stellar Fusion](https://s3.amazonaws.com/files.enjin.com/1172307/modules/forum/attachments/%C2%A7f%C2%A7lS%C2%A7e%C2%A7lte%C2%A76%C2%A7lll%C2%A74%C2%A7lar+%C2%A7f%C2%A7lFusion+V0.3.4_1550833036.zip) => [GTNH Faithful Textures](https://github.com/Ethryan/GTNH-Faithful-Textures/releases/latest)
+- [Faithful 32 Modded Edition](http://www.f32.me/old/F32-1.7.10.zip)
+- Realistic Sky GT New Horizons
+### F32 fix
+- GTNH-Faithful-Textures.0.9.3.zip\assets\appliedenergistics2\textures\guis\states.png
 - chisel
 
 ## TODO
 - Generate HardcoreDarkness.cfg\Dimension Blacklist
-- add bug with tools to bookmarks
+- add bag with test tools to bookmarks
 - OPTIFINE
   - Choose verison
   - [OptiFine](https://optifine.net/adloadx?f=OptiFine_1.7.10_HD_U_E7.jar)
   - [FastCraft 1.23](https://www.curseforge.com/minecraft/mc-mods/fastcraft/files/2292386)
+  - shaderpacks/ https://www.curseforge.com/minecraft/customization/complementary-shaders
 - Sync
   - sync journeymap/data/ and TCNodeTracker/ and visualprospecting/
   - saves/NEI/global/bookmarks.ini or config/NEI/bookmarks.ini ?
   - sync logs/ and screenshots/ and saves/
-  - check shaderpacks/ (choose one)
-  - check saves/
-  - check invtweaks
+  - check invtweaks and questbook
   - servers.dat
   - journeymap/data/ merger
-- borderless mod
-- patch faithful
-- config GT++
+- borderless mod check

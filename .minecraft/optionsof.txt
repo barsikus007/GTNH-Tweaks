@@ -1,5 +1,5 @@
-ofRenderDistanceChunks:9
-ofFogType:1
+ofRenderDistanceChunks:16
+ofFogType:3
 ofFogStart:0.8
 ofMipmapType:0
 ofLoadFar:false
@@ -10,7 +10,7 @@ ofSmoothWorld:true
 ofAoLevel:1.0
 ofClouds:0
 ofCloudsHeight:0.0
-ofTrees:0
+ofTrees:2
 ofGrass:0
 ofDroppedItems:0
 ofRain:0
