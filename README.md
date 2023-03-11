@@ -3,8 +3,8 @@
 My setup of GTNH and shitcoded python patcher for configs
 
 ## JAVA
--Xmx6144m
--Xmx6g
+-Xms1024m
+-Xms1g
 -Xmx6144m
 -Xmx6g
 (no more than 6G)
@@ -13,13 +13,13 @@ https://discord.com/channels/181078474394566657/234936569360809996/5377283903633
 ```bash
 -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC -XX:MaxGCPauseMillis=80 -XX:+UseStringDeduplication -XX:+UseCompressedOops -XX:+UseCodeCacheFlushing -XX:ParallelGCThreads=6
 ```
-Add this to fix `Timed out`
+Add this to fix `Timed out` (need to set this both on client and server)
 ```bash
 -Dfml.readTimeout=180
 ```
 ## config/
 ### GregTech/Client.cfg
-Due to lack of glowing textures upgrade in Stellar Fusion
+Due to lack of glowing textures upgrade in Stellar Fusion https://discord.com/channels/181078474394566657/234936569360809996/962740879217541120
 ```
 B:GlowTextures_true=true
 B:GlowTextures_true=false
@@ -106,6 +106,7 @@ journeymap-1.7.10-5.1.4p2-fairplay.jar
   - [OptiFine](https://optifine.net/adloadx?f=OptiFine_1.7.10_HD_U_E7.jar)
   - [FastCraft 1.23](https://www.curseforge.com/minecraft/mc-mods/fastcraft/files/2292386)
   - shaderpacks/ https://www.curseforge.com/minecraft/customization/complementary-shaders
+  - shaderpacks/ https://www.curseforge.com/minecraft/customization/bsl-shaders
 - Sync
   - sync journeymap/data/ and TCNodeTracker/ and visualprospecting/
   - saves/NEI/global/bookmarks.ini or config/NEI/bookmarks.ini ?
@@ -113,4 +114,5 @@ journeymap-1.7.10-5.1.4p2-fairplay.jar
   - check invtweaks and questbook
   - servers.dat
   - journeymap/data/ merger
+  - sync ../instance.cfg
 - borderless mod check
