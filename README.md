@@ -10,6 +10,7 @@ My setup of GTNH and shitcoded python patcher for configs
 (no more than 6G)
 Set max threads to your CPU count
 https://discord.com/channels/181078474394566657/234936569360809996/537728390363348992
+TODO remove `-XX:+UseConcMarkSweepGC` if java version is 19
 ```bash
 -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC -XX:MaxGCPauseMillis=80 -XX:+UseStringDeduplication -XX:+UseCompressedOops -XX:+UseCodeCacheFlushing -XX:ParallelGCThreads=6
 ```
@@ -84,19 +85,24 @@ B:BloodMoonRedLight=false
 - [NBTEdit](https://www.curseforge.com/minecraft/mc-mods/forge-nbtedit-for-1-7-10)
 - [NBTEdit alt](https://github.com/MoeBoy76/NBTEdit/releases/tag/1.7.10)
 - [JourneyMap with radar](https://www.curseforge.com/minecraft/mc-mods/journeymap/files/all?filter-game-version=2020709689%3A4449)
-- [Fullscreen Windowed](https://www.curseforge.com/minecraft/mc-mods/fullscreen-windowed-borderless-for-minecraft)
 - [Russian font fix](https://github.com/gamerforEA/Minecraft-ClientFixer/releases/tag/1.0)
 ### Remove
 journeymap-1.7.10-5.1.4p2-fairplay.jar
 
 ## resourcepacks/
 - [Ztones xBR upscale to 32x](https://discord.com/channels/181078474394566657/224191655375273985/453546192794550272)
+  - (worse than usual due to fucked up upscaler, will delete it)
 - [Stellar Fusion](https://s3.amazonaws.com/files.enjin.com/1172307/modules/forum/attachments/%C2%A7f%C2%A7lS%C2%A7e%C2%A7lte%C2%A76%C2%A7lll%C2%A74%C2%A7lar+%C2%A7f%C2%A7lFusion+V0.3.4_1550833036.zip) => [GTNH Faithful Textures](https://github.com/Ethryan/GTNH-Faithful-Textures/releases/latest)
 - [Faithful 32 Modded Edition](http://www.f32.me/old/F32-1.7.10.zip)
 - Realistic Sky GT New Horizons
 ### F32 fix
-- GTNH-Faithful-Textures.0.9.3.zip\assets\appliedenergistics2\textures\guis\states.png
+- rollback fonts
+  - GTNH-Faithful-Textures.0.9.5\assets\minecraft\textures\font\
+  - GTNH-Faithful-Textures.0.9.5\assets\minecraft\
+- ae2 new items fix
+  - GTNH-Faithful-Textures.0.9.5.zip\assets\appliedenergistics2\textures\guis\states.png
 - chisel
+  - idk
 
 ## TODO
 - Generate HardcoreDarkness.cfg\Dimension Blacklist
@@ -107,6 +113,7 @@ journeymap-1.7.10-5.1.4p2-fairplay.jar
   - [FastCraft 1.23](https://www.curseforge.com/minecraft/mc-mods/fastcraft/files/2292386)
   - shaderpacks/ https://www.curseforge.com/minecraft/customization/complementary-shaders
   - shaderpacks/ https://www.curseforge.com/minecraft/customization/bsl-shaders
+  - replace optifine ? https://gtnh.miraheze.org/wiki/Additional_Mods
 - Sync
   - sync journeymap/data/ and TCNodeTracker/ and visualprospecting/
   - saves/NEI/global/bookmarks.ini or config/NEI/bookmarks.ini ?

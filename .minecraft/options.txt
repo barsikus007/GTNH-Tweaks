@@ -15,7 +15,7 @@ difficulty:0
 fancyGraphics:true
 ao:2
 clouds:true
-resourcePacks:["Realistic Sky GT New Horizons.zip","F32-1.7.10.zip","GTNH-Faithful-Textures.0.9.3.zip","Ztones_Lazy_32x.zip"]
+resourcePacks:["Realistic Sky GT New Horizons.zip","F32-1.7.10.zip","GTNH-Faithful-Textures.0.9.5.zip","Ztones_Lazy_32x.zip"]
 lastServer:
 lang:en_US
 chatVisibility:0
