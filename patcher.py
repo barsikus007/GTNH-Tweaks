@@ -113,9 +113,9 @@ def main(minecraft_home: Path, dry_run: bool = True):
 
 
 if __name__ == "__main__":
-    path = input(r"Enter path to your .minecraft folder: (C:\MultiMC\instances\GTNH\.minecraft)""\n>>> ")
+    path = input(r"Enter path to your .minecraft folder: (C:\Users\Admin\scoop\apps\prismlauncher\current\instances\GTNH-2.4.0\.minecraft)""\n>>> ")
     if not path:
-        path = r"C:\Users\Admin\Desktop\Gayms\Portable\MultiMC\instances\GTNH\.minecraft"
+        path = r"C:\Users\Admin\scoop\apps\prismlauncher\current\instances\GTNH-2.4.0\.minecraft"
     dry_run = input("Dry run? (Y/n)\n>>> ").lower() != "n"
     minecraft_home = Path(path)
     main(minecraft_home, dry_run)
