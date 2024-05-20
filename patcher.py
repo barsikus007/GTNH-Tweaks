@@ -4,19 +4,19 @@ from pathlib import Path
 
 def patch_config(config_folder: Path, dry_run: bool = True):
     config_anchor = "## config/"
-    with open("README.md", "r") as f:
+    with open("README.md", "r", encoding="utf-8") as f:
         readme = f.read()
     config_start = readme.find(config_anchor)
     config_end = readme.find("\n## ", config_start+1)
     config = readme[config_start:config_end]
     config_lines = config.splitlines()
-    replace_dict = {}
-    append_dict = {}
+    replace_dict: dict[str, list] = {}
+    append_dict: dict[str, list] = {}
     for num, line in enumerate(config_lines):
-        if line.startswith("### InGameInfo.xml"):
+        if line.startswith("### InGameInfoXML/InGameInfo.xml"):
             append_list = [[]]
             path_to_file = line[4:]
-            add_num = 3
+            add_num = 5
             line_buffer = ""
 
             while True:
@@ -29,6 +29,7 @@ def patch_config(config_folder: Path, dry_run: bool = True):
                         append_list.append([])
                     append_list[-1].append(line_buffer)
                     line_buffer = ""
+                    add_num += 1
                     if not config_lines[num+add_num].startswith("```xml"):
                         break
                     continue
@@ -37,7 +38,7 @@ def patch_config(config_folder: Path, dry_run: bool = True):
         elif line.startswith("### "):
             replace_list = [[]]
             path_to_file = line[4:]
-            add_num = 3
+            add_num = 5
 
             while True:
                 next_line = config_lines[num+add_num]
@@ -56,8 +57,7 @@ def patch_config(config_folder: Path, dry_run: bool = True):
         pprint(append_dict)
     for path, value in replace_dict.items():
         try:
-            with open(config_folder / path, "r") as f:
-                filedata = f.read()
+            filedata = (config_folder / path).read_text()
         except FileNotFoundError:
             print(f"File {path} not found")
             continue
@@ -71,12 +71,10 @@ def patch_config(config_folder: Path, dry_run: bool = True):
             filedata = filedata.replace(_[0], _[1])
         
         if not dry_run:
-            with open(config_folder / path, 'w') as file:
-                file.write(filedata)
+            (config_folder / path).write_text(filedata)
     for path, value in append_dict.items():
         try:
-            with open(config_folder / path, "r") as f:
-                filedata = f.read()
+            filedata = (config_folder / path).read_text()
         except FileNotFoundError:
             print(f"File {path} not found")
             continue
@@ -109,13 +107,16 @@ def main(minecraft_home: Path, dry_run: bool = True):
     patch_config(minecraft_home / "config", dry_run)
     patch_mods(minecraft_home / "mods")
     patch_resourcepacks(minecraft_home / "resourcepacks")
-    print("copy journeymap/config and content of local .minecraft folder to .minecraft folder")
+    print("copy journeymap/config/ and content of local .minecraft/ folder to instance .minecraft/ folder")
+    print("")
+    print("to sync data check #TODO/Sync section in README.md")
 
 
 if __name__ == "__main__":
-    path = input(r"Enter path to your .minecraft folder: (C:\Users\Admin\scoop\apps\prismlauncher\current\instances\GTNH-2.4.0\.minecraft)""\n>>> ")
-    if not path:
-        path = r"C:\Users\Admin\scoop\apps\prismlauncher\current\instances\GTNH-2.4.0\.minecraft"
-    dry_run = input("Dry run? (Y/n)\n>>> ").lower() != "n"
-    minecraft_home = Path(path)
-    main(minecraft_home, dry_run)
+    TARGET_VERSION = "2.6.0"
+    DEFAULT_PATH = rf"C:\Users\Admin\scoop\apps\prismlauncher\current\instances\GTNH-{TARGET_VERSION}\.minecraft"
+    print(f"GTNH patcher target version: {TARGET_VERSION}")
+    input_path = input(f"Enter path to your .minecraft folder: ({DEFAULT_PATH})\n>>> ") or DEFAULT_PATH
+    main_dry_run = input("Dry run? (Y/n)\n>>> ").lower() != "n"
+    main_minecraft_home = Path(input_path)
+    main(main_minecraft_home, main_dry_run)
