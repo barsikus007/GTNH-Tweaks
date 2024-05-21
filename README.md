@@ -147,7 +147,11 @@ journeymap-1.7.10-5.2.3-fairplay.jar
   - GTNH-Faithful-Textures.0.9.6\assets\minecraft\textures\font\
   - GTNH-Faithful-Textures.0.9.6\assets\minecraft\
 - ae2 new items fix
-  - GTNH-Faithful-Textures.0.9.6.zip\assets\appliedenergistics2\textures\guis\states.png
+  - GTNH-Faithful-Textures.0.9.6\assets\appliedenergistics2\textures\guis\states.png
+    - copy from mod
+  - GTNH-Faithful-Textures.0.9.6\assets\appliedenergistics2\textures\guis\newinterfaceterminal.png
+  - GTNH-Faithful-Textures.0.9.6\assets\appliedenergistics2\textures\guis\pattern3.png
+  - GTNH-Faithful-Textures.0.9.6\assets\appliedenergistics2\textures\guis\pattern4.png
 - chisel
   - idk
 
