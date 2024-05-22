@@ -1,4 +1,6 @@
-# GTNH Tweaks (target 2.6.0)
+# GTNH Tweaks
+
+(target 2.6.1)
 
 My setup of GTNH and shitcoded python patcher for configs
 
@@ -158,21 +160,17 @@ journeymap-1.7.10-5.2.3-fairplay.jar
 ## TODO
 
 - migrate patcher to diff-like syntax
-  - add regex support or smth like that to fix strict md formatting
-- Generate HardcoreDarkness.cfg\Dimension Blacklist
+- generate HardcoreDarkness.cfg\Dimension Blacklist
+  - is it working?
 - add bag with test tools to bookmarks
-- Optimization choices
-  - Angelica
-  - (with shaders) OF-U7 with FC-1.25 is only option for Java 17-20
+- Shaders
+  - Angelica is temporary doesn't support shaders
+  - use OF-U7 with FC-1.25
     - [OptiFine U7](https://optifine.net/adloadx?f=OptiFine_1.7.10_HD_U_E7.jar)
     - FastCraft 1.25 preinstalled
-  - (without shaders) OF-D6 with FC-1.23 should work better
-    - [OptiFine D6](https://optifine.net/adloadx?f=OptiFine_1.7.10_HD_U_D6.jar)
-    - [FastCraft 1.23](https://www.curseforge.com/minecraft/mc-mods/fastcraft/files/2292386)
   - shaderpacks/
     - <https://www.curseforge.com/minecraft/customization/complementary-shaders>
     - <https://www.curseforge.com/minecraft/customization/bsl-shaders>
-- <https://gtnh.miraheze.org/wiki/Additional_Mods>
 - Sync
   - journeymap/data/
   - TCNodeTracker/
