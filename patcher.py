@@ -71,6 +71,7 @@ def parse_config(config: dict[str, str]) -> tuple[dict[str, list], dict[str, lis
 
 def patch_config(config_folder: Path, config: dict[str, str], dry_run: bool = True):
     replace_dict, append_dict = parse_config(config)
+    print(f"Patching {config_folder=}")
     if dry_run:
         print("Parsed replaces:")
         pprint(replace_dict)
@@ -138,6 +139,8 @@ def patch_resourcepacks(resourcepacks_folder: Path):
 def main(minecraft_home: Path, dry_run: bool = True):
     md_file: dict = parse_md(Path("README.md").read_text(encoding="utf-8"))["GTNH Tweaks"]  # type: ignore
     patch_config(minecraft_home / "config", md_file["config/"], dry_run)
+    print()
+    patch_config(minecraft_home / "serverutilities", md_file["serverutilities/"], dry_run)
     print()
     patch_mods(minecraft_home / "mods", md_file["mods/"], dry_run)
     print()

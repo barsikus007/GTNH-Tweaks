@@ -117,13 +117,30 @@ B:BloodMoonRedLight=true
 B:BloodMoonRedLight=false
 ```
 
+## serverutilities/
+
+### serverutilities.cfg
+
+To enable NBT editing
+
+```ini
+B:nbtedit=false
+B:nbtedit=true
+```
+
+### client/serverutilities.cfg
+
+To show NBT data with shift
+
+```ini
+B:item_nbt=false
+B:item_nbt=true
+```
+
 ## mods/
 
 ### Add
 
-- [NBTEdit](https://www.curseforge.com/minecraft/mc-mods/forge-nbtedit-for-1-7-10)
-  - NBTEdit [should now come with ServerUtilities mod](https://github.com/GTNewHorizons/ServerUtilities/issues/68), but it's not working for me
-  - [NBTEdit alt](https://github.com/MoeBoy76/NBTEdit/releases/tag/1.7.10)
 - [JourneyMap with radar](https://www.curseforge.com/minecraft/mc-mods/journeymap/files?version=1.7.10)
 - [Russian font fix](https://github.com/gamerforEA/Minecraft-ClientFixer/releases/tag/1.0)
   - [temporary broken](https://github.com/GTNewHorizons/Angelica/issues/497)
@@ -159,10 +176,13 @@ journeymap-1.7.10-5.2.3-fairplay.jar
 
 ## TODO
 
-- migrate patcher to diff-like syntax
-- generate HardcoreDarkness.cfg\Dimension Blacklist
-  - is it working?
-- add bag with test tools to bookmarks
+- Core
+  - migrate patcher to diff-like syntax
+- Patch
+  - generate HardcoreDarkness.cfg\Dimension Blacklist
+    - is it working?
+  - add bag with test tools to bookmarks
+  - quest book design config
 - Shaders
   - Angelica is temporary doesn't support shaders
   - use OF-U7 with FC-1.25
@@ -180,4 +200,3 @@ journeymap-1.7.10-5.2.3-fairplay.jar
   - saves/
     - NEI/global/bookmarks.ini
   - ../instance.cfg
-- borderless mod check
