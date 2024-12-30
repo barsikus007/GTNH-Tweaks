@@ -117,6 +117,19 @@ B:BloodMoonRedLight=true
 B:BloodMoonRedLight=false
 ```
 
+### betterquesting.cfg
+
+Book settings and design
+
+```ini
+B:"Lock tray"=false
+B:"Lock tray"=true
+S:Theme=betterquesting:light
+S:Theme=betterquesting:vanilla
+B:"View mode"=false
+B:"View mode"=true
+```
+
 ## serverutilities/
 
 ### serverutilities.cfg
@@ -177,12 +190,13 @@ journeymap-1.7.10-5.2.3-fairplay.jar
 ## TODO
 
 - Core
-  - migrate patcher to diff-like syntax
+  - migrate patcher to diff/sed-like syntax
+  - update journeymap settings
 - Patch
   - generate HardcoreDarkness.cfg\Dimension Blacklist
     - is it working?
   - add bag with test tools to bookmarks
-  - quest book design config
+  - journeymap settings
 - Shaders
   - Angelica is temporary doesn't support shaders
   - use OF-U7 with FC-1.25
