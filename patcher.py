@@ -35,7 +35,6 @@ def parse_config(config: dict[str, str]) -> tuple[dict[str, list], dict[str, lis
 
             while True:
                 next_line = config_section_lines[add_num]
-                print(f"⚡🐍 {next_line=}")
                 add_num += 1
                 if next_line.startswith("```xml"):
                     continue
@@ -148,14 +147,14 @@ def main(minecraft_home: Path, dry_run: bool = True):
     print()
     print("copy journeymap/config/ and content of local .minecraft/ folder to instance .minecraft/ folder")
     print("")
-    print("to sync data check #TODO/Sync section in README.md")
+    print("to sync data check ## TODO/Sync section in README.md")
 
 
 if __name__ == "__main__":
-    TARGET_VERSION = "2.6.1"
+    TARGET_VERSION = "2.7.2"
     DEFAULT_PATH = rf"C:\Users\Admin\scoop\apps\prismlauncher\current\instances\GTNH-{TARGET_VERSION}\.minecraft"
     print(f"GTNH patcher target version: {TARGET_VERSION}")
-    input_path = input(f"Enter path to your .minecraft folder: ({DEFAULT_PATH})\n>>> ") or DEFAULT_PATH
+    input_path = input(f"Enter path to GTNH .minecraft folder: ({DEFAULT_PATH})\n>>> ") or DEFAULT_PATH
     main_dry_run = input("Dry run? (Y/n)\n>>> ").lower() != "n"
     main_minecraft_home = Path(input_path)
     main(main_minecraft_home, main_dry_run)
