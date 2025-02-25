@@ -1,11 +1,13 @@
--- https://host7.dev/oc/tpsCard.lua
-term = require("term");
-event = require("event");
-component = require("component");
+-- Origin: https://host7.dev/oc/tpsCard.lua
+-- Source: https://github.com/GTNewHorizons/OpenComputers/blob/master/src/main/scala/li/cil/oc/server/component/TpsCard.scala
+term = require("term")
+event = require("event")
+component = require("component")
 
-tpsCard = component.tps_card;
-gpu = component.gpu;
+tpsCard = component.tps_card
+gpu = component.gpu
 
+refresh = 1 / 10
 doContinue = true
 term.clear()
 
@@ -13,8 +15,9 @@ gpu.set(1, 1, "Loading, please wait...")
 
 function keyPressed(event_name, player_uuid, ascii)
     local c = string.char(ascii)
-    if c=='q' then
+    if c == 'q' then
         doContinue = false
+        term.clear()
     else
         event.register("key_down", keyPressed)
     end
@@ -23,30 +26,23 @@ end
 event.register("key_down", keyPressed)
 
 
-dimNames = {}
+allDimNames = tpsCard.getAllDims()
 
-allTickTimes = tpsCard.getAllTickTimes()
-for dimId, tickTime in pairs(allTickTimes) do
-    dimName = tpsCard.getNameForDim(dimId)
-    dimNames[dimId] = dimName
-    gpu.set(1, 2, "                                                                     ")
-    gpu.set(1, 2, "Loading dim "..dimName)
-end
-
-while(doContinue) do
+while (doContinue) do
     allTickTimes = tpsCard.getAllTickTimes()
+    tps = tpsCard.convertTickTimeIntoTps(totalTickTime)
     count = 2
     totalTickTime = 0
     term.clear()
     for dimId, tickTime in pairs(allTickTimes) do
         totalTickTime = totalTickTime + tickTime
-        if(tickTime > 0.3) then
-            gpu.set(1, count, tostring(dimNames[dimId]).."("..tostring(dimId)..") - "..tostring(tonumber(string.format("%.3f", tickTime))))
+        if (tickTime > 0.3) then
+            gpu.set(1, count, string.format("%s(%d) - %.3f", allDimNames[dimId], dimId, tickTime))
             count = count + 1
         end
     end
 
-    tps = tonumber(string.format("%.3f", tpsCard.convertTickTimeIntoTps(totalTickTime)))
-    gpu.set(1, 1, "Ticktime: ".. tonumber(string.format("%.3f", totalTickTime)) .. " - TPS: " ..tostring(tps))
-    os.sleep(0.1)
+    gpu.set(1, 1, string.format("Ticktime: %.3f - TPS: %.3f", totalTickTime, tps))
+    gpu.set(1, count + 1, "(Press q to exit)")
+    os.sleep(refresh)
 end
