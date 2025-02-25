@@ -36,6 +36,12 @@ function glassSetup()
 end
 
 refresh = 1 / 5
+stopValue = 0.9
+startValue = 0.8
+if startValue >= stopValue then
+    print("Start value must be less than stop value")
+    return
+end
 reactorState = false
 LSC = component.gt_machine
 LSCSwitch = component.redstone
@@ -58,23 +64,22 @@ function glassDisplayEU()
     textIncome.setColor(storageIncome < 0 and 1 or 0, storageIncome > 0 and 1 or 0, 0)
     textReactor.setColor((not reactorState) and 1 or 0, reactorState and 1 or 0, 0)
     textIncome.setText(string.format("%s EU/t", formatNumber(storageIncome)))
-    textPercent.setText(string.format("%.2f%%", storagePercent))
+    textPercent.setText(string.format("%.2f%%", storagePercent * 100))
     textStorage.setText(string.format("%s/%s EU", formatNumber(storageCurrent), formatNumber(storageMax)))
     textReactor.setText(reactorState and "Reactor Enabled" or "Reactor Disabled")
-    -- print(string.format("%.2f%%", storagePercent))
 end
 
 print("Running EU monitor... (Press q to exit)")
 while doContinue do
     storageCurrent = LSC.getEUStored()
-    storagePercent = storageCurrent / storageMax * 100
+    storagePercent = storageCurrent / storageMax
     storageIncome = LSC.getEUInputAverage() - LSC.getEUOutputAverage()
     glassDisplayEU()
-    if storagePercent > 90 then
+    if storagePercent > stopValue then
         reactorState = false
         LSCSwitch.setOutput({ 0, 0, 0, 0, 0, 0 })
     end
-    if storagePercent < 80 then
+    if storagePercent < startValue then
         reactorState = true
         LSCSwitch.setOutput({ 15, 15, 15, 15, 15, 15 })
     end

@@ -1,6 +1,6 @@
 {
     "Lua.workspace.library": [
-        "opencomputers\\GTNH-OC-Lua-Documentation\\lua"
+        "opencomputers/GTNH-OC-Lua-Documentation/lua"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global"

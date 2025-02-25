@@ -29,10 +29,10 @@ event.register("key_down", keyPressed)
 allDimNames = tpsCard.getAllDims()
 
 while (doContinue) do
-    allTickTimes = tpsCard.getAllTickTimes()
-    tps = tpsCard.convertTickTimeIntoTps(totalTickTime)
     count = 2
     totalTickTime = 0
+    allTickTimes = tpsCard.getAllTickTimes()
+    tps = tpsCard.convertTickTimeIntoTps(totalTickTime)
     term.clear()
     for dimId, tickTime in pairs(allTickTimes) do
         totalTickTime = totalTickTime + tickTime
@@ -41,6 +41,18 @@ while (doContinue) do
             count = count + 1
         end
     end
+
+    -- entities = tpsCard.getTileEntitiesListForDim(0)
+    -- sortedEntities = {}
+    -- for name, count in pairs(entities) do table.insert(sortedEntities, { name, count }) end
+    -- table.sort(sortedEntities, function(a, b) return a[2] > b[2] end)
+    -- for _, entity in pairs(sortedEntities) do
+    --     gpu.set(1, count, string.format("%s - %d", entity[1], entity[2]))
+    --     count = count + 1
+    --     if count > 20 then
+    --         break
+    --     end
+    -- end
 
     gpu.set(1, 1, string.format("Ticktime: %.3f - TPS: %.3f", totalTickTime, tps))
     gpu.set(1, count + 1, "(Press q to exit)")
