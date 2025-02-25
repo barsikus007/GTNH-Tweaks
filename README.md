@@ -146,8 +146,8 @@ journeymap-1.7.10-5.2.7-fairplay.jar
 ### F32 fix (recheck)
 
 - rollback fonts for ClientFixer(Cyrillic font fix)
-  - GTNH-Faithful-Textures.0.9.12\assets\minecraft\textures\font\
-  - GTNH-Faithful-Textures.0.9.12\assets\minecraft\
+  - GTNH-Faithful-x32.0.9.15/assets/minecraft/textures/font/
+  - GTNH-Faithful-x32.0.9.15/assets/minecraft/
 
 ## TODO
 
@@ -155,7 +155,7 @@ journeymap-1.7.10-5.2.7-fairplay.jar
   - migrate patcher to diff/sed-like syntax
   - update journeymap settings
 - Patch
-  - generate HardcoreDarkness.cfg\Dimension Blacklist
+  - generate HardcoreDarkness.cfg/Dimension Blacklist
     - is it working?
   - add bag with test tools to bookmarks
   - journeymap settings

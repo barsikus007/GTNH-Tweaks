@@ -15,7 +15,7 @@ difficulty:0
 fancyGraphics:true
 ao:2
 clouds:true
-resourcePacks:["GTNH-Faithful-Textures.0.9.12.zip","Round Large Turbine Overlay.zip","Hidden Galacticraft Thermal Padding GT V1.0.0.zip","Realistic Sky GT New Horizons.zip"]
+resourcePacks:["GTNH-Faithful-x32.v0.9.15.zip","Hidden Galacticraft Thermal Padding GT V1.0.0.zip","Realistic Sky GT New Horizons.zip"]
 lastServer:
 lang:en_US
 chatVisibility:0
@@ -69,7 +69,7 @@ key_key.pickItem:-98
 key_key.command:53
 key_key.screenshot:60
 key_key.togglePerspective:63
-key_key.smoothCamera:0
+key_key.smoothCamera:66
 key_key.sprint:29
 key_key.streamStartStop:0
 key_key.streamPauseUnpause:0
@@ -92,7 +92,7 @@ key_Side Inventory Key:0
 key_Hub Expand Key:45
 key_ae2wct.OpenTerminal:0
 key_ae2wct.OpenMagnetFilter:0
-key_ae2wct.SwitchMagnetMode:0
+key_ae2wct.SwitchMagnetMode:44
 key_key.toggle_focus.desc:0
 key_Draw Weapons:0
 key_Special:0
@@ -102,7 +102,7 @@ key_key.betterquesting.quests:41
 key_openblocks.keybind.vario_switch:0
 key_openblocks.keybind.vario_vol_up:0
 key_openblocks.keybind.vario_vol_down:0
-key_Gravi Fly Key:33
+key_Gravi Fly Key:37
 key_Gravi Display Hud:0
 key_GraviSuite MedKit:0
 key_HoloGlasses:76
@@ -118,7 +118,7 @@ key_key.serverutilities.trash:0
 key_keys.adventureBackpack.openInventory:50
 key_keys.adventureBackpack.toggleActions:0
 key_Baubles Inventory:0
-key_Change Wand Focus:37
+key_Change Wand Focus:33
 key_Activate Hover Harness:35
 key_Misc Wand Toggle:34
 key_waila.keybind.wailaconfig:82
@@ -150,8 +150,8 @@ key_Yeta Wrench Mode:0
 key_Toggle Electromagnet:0
 key_Travel Staff Blink:0
 key_Automagy.key.focusCrafting:0
-key_botaniamisc.toggleLoki:0
-key_botaniamisc.ringOfLokiClear:0
+key_botaniamisc.toggleLoki:38
+key_botaniamisc.ringOfLokiClear:24
 key_botaniamisc.ringOfLokiMirror:0
 key_bbw.key.mode:0
 key_bbw.key.fluidmode:0
@@ -185,7 +185,7 @@ key_Activate Morphic Fingers:0
 key_Toggle Spider Climb:0
 key_Toggle Chameleon Skin:0
 key_TG.keybind.openInv:0
-key_TG.keybind.activeaAbilities:38
+key_TG.keybind.activeaAbilities:0
 key_TG.keybind.activeAbility1:0
 key_TG.keybind.activeAbility2:0
 key_TG.keybind.activeAbility3:0
@@ -207,7 +207,7 @@ key_key.journeymap.minimap_preset:43
 key_key.journeymap.create_waypoint:0
 key_sharewhereiam.keybinding.KEYBINDING_SHARE_NAME:210
 key_key.craftpresence.config_keycode.name:0
-soundCategory_master:0.1
+soundCategory_master:0.15
 soundCategory_music:0.05
 soundCategory_record:1.0
 soundCategory_weather:1.0
