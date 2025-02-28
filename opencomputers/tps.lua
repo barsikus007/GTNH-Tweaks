@@ -35,6 +35,11 @@ while (doContinue) do
     tps = tpsCard.convertTickTimeIntoTps(totalTickTime)
     term.clear()
     for dimId, tickTime in pairs(allTickTimes) do
+        local dimName = allDimNames[dimId]
+        if dimName == nil then
+            allDimNames = tpsCard.getAllDims()
+            dimName = allDimNames[dimId]
+        end
         if (tickTime > 0.3) then
             gpu.set(1, count, string.format("%s(%d) - %.3f", allDimNames[dimId], dimId, tickTime))
             count = count + 1
