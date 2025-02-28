@@ -1,6 +1,13 @@
 event = require("event");
 component = require("component")
 
+-- #region config
+local textScale = 1
+local refresh = 1 / 5
+local stopValue = 0.9
+local startValue = 0.8
+-- #endregion config
+
 doContinue = true
 
 function keyPressed(event_name, player_uuid, ascii)
@@ -15,9 +22,25 @@ end
 event.register("key_down", keyPressed)
 
 
+local function formatNumber(number)
+    -- https://stackoverflow.com/a/10992898
+    local i, j, minus, int, fraction = tostring(number):find('([-]?)(%d+)([.]?%d*)')
+
+    -- reverse the int-string and append a comma to all blocks of 3 digits
+    int = int:reverse():gsub("(%d%d%d)", "%1,")
+
+    -- reverse the int-string back remove an optional comma and put the
+    -- optional minus and fractional part back
+    return minus .. int:reverse():gsub("^,", "") .. fraction
+end
+
+
 --- @type table<string, Text2D>
 local texts = {}
-local textScale = 1
+local reactorState = false
+local glasses = component.glasses
+local LSC = component.gt_machine
+local LSCSwitch = component.redstone
 
 ---@param glasses glasses The glasses component.
 ---@param key string The key for the text.
@@ -58,48 +81,27 @@ local function glassesSetup(glasses)
     createShadowText(glasses, "reactor", 0, 40)
 end
 
-refresh = 1 / 5
-stopValue = 0.9
-startValue = 0.8
+glassesSetup(glasses)
 if startValue >= stopValue then
     print("Start value must be less than stop value")
     return
 end
-reactorState = false
-LSC = component.gt_machine
-LSCSwitch = component.redstone
-storageMax = LSC.getEUMaxStored()
-glasses = component.glasses
-glassesSetup(glasses)
 
-local function formatNumber(number)
-    -- https://stackoverflow.com/a/10992898
-    local i, j, minus, int, fraction = tostring(number):find('([-]?)(%d+)([.]?%d*)')
+print("Running EU monitor... (Press q to exit)")
+while doContinue do
+    local storageMax = LSC.getEUMaxStored()
+    local storageCurrent = LSC.getEUStored()
+    local storagePercent = storageCurrent / storageMax
+    local storageIncome = LSC.getEUInputAverage() - LSC.getEUOutputAverage()
 
-    -- reverse the int-string and append a comma to all blocks of 3 digits
-    int = int:reverse():gsub("(%d%d%d)", "%1,")
-
-    -- reverse the int-string back remove an optional comma and put the
-    -- optional minus and fractional part back
-    return minus .. int:reverse():gsub("^,", "") .. fraction
-end
-
-local function glassesDisplayEU()
     setShadowText("income", string.format("%s EU/t", formatNumber(storageIncome)),
         storageIncome < 0 and 1 or 0, storageIncome > 0 and 1 or 0, 0)
     setShadowText("percent", string.format("%.2f%%", storagePercent * 100))
     setShadowText("storage", string.format("%s/%s EU", formatNumber(storageCurrent), formatNumber(storageMax)))
     setShadowText("reactor", reactorState and "Reactor Enabled" or "Reactor Disabled",
         (not reactorState) and 1 or 0, reactorState and 1 or 0, 0)
-end
 
-print("Running EU monitor... (Press q to exit)")
-while doContinue do
-    storageCurrent = LSC.getEUStored()
-    storagePercent = storageCurrent / storageMax
-    storageIncome = LSC.getEUInputAverage() - LSC.getEUOutputAverage()
-    glassesDisplayEU()
-    if storagePercent > stopValue then
+        if storagePercent > stopValue then
         reactorState = false
         LSCSwitch.setOutput({ 0, 0, 0, 0, 0, 0 })
     end
