@@ -15,24 +15,47 @@ end
 event.register("key_down", keyPressed)
 
 
-function glassSetup()
+--- @type table<string, Text2D>
+local texts = {}
+local textScale = 1
+
+---@param glasses glasses The glasses component.
+---@param key string The key for the text.
+---@param x number The x position of the text.
+---@param y number The y position of the text.
+local function createShadowText(glasses, key, x, y)
+    texts[key .. "shadow"] = glasses.addTextLabel()
+    texts[key .. "shadow"].setPosition(x + 1, y + 1)
+    texts[key .. "shadow"].setScale(textScale)
+    texts[key .. "shadow"].setColor(63 / 255, 63 / 255, 63 / 255)
+    texts[key] = glasses.addTextLabel()
+    texts[key].setPosition(x, y)
+    texts[key].setScale(textScale)
+    texts[key].setColor(1, 1, 1)
+end
+
+---@param key string The key for the text.
+---@param text string The text to display.
+---@param r number? # The red component from `0.0` to `1.0`.
+---@param g number? # The green component from `0.0` to `1.0`.
+---@param b number? # The blue component from `0.0` to `1.0`.
+local function setShadowText(key, text, r, g, b)
+    texts[key .. "shadow"].setText(text)
+    texts[key].setText(text)
+    if r == nil or g == nil or b == nil then
+        return
+    end
+    texts[key .. "shadow"].setColor(r / 4, g / 4, b / 4)
+    texts[key].setColor(r, g, b)
+end
+
+---@param glasses glasses The glasses component.
+local function glassesSetup(glasses)
     glasses.removeAll()
-    textIncome = glasses.addTextLabel()
-    textIncome.setPosition(0, 10)
-    textIncome.setScale(1)
-    textIncome.setColor(1, 1, 1)
-    textPercent = glasses.addTextLabel()
-    textPercent.setPosition(0, 20)
-    textPercent.setScale(1)
-    textPercent.setColor(1, 1, 1)
-    textStorage = glasses.addTextLabel()
-    textStorage.setPosition(0, 30)
-    textStorage.setScale(1)
-    textStorage.setColor(1, 1, 1)
-    textReactor = glasses.addTextLabel()
-    textReactor.setPosition(0, 40)
-    textReactor.setScale(1)
-    textReactor.setColor(1, 1, 1)
+    createShadowText(glasses, "income", 0, 10)
+    createShadowText(glasses, "percent", 0, 20)
+    createShadowText(glasses, "storage", 0, 30)
+    createShadowText(glasses, "reactor", 0, 40)
 end
 
 refresh = 1 / 5
@@ -45,10 +68,11 @@ end
 reactorState = false
 LSC = component.gt_machine
 LSCSwitch = component.redstone
-glasses = component.glasses
 storageMax = LSC.getEUMaxStored()
+glasses = component.glasses
+glassesSetup(glasses)
 
-function formatNumber(number)
+local function formatNumber(number)
     -- https://stackoverflow.com/a/10992898
     local i, j, minus, int, fraction = tostring(number):find('([-]?)(%d+)([.]?%d*)')
 
@@ -60,13 +84,13 @@ function formatNumber(number)
     return minus .. int:reverse():gsub("^,", "") .. fraction
 end
 
-function glassDisplayEU()
-    textIncome.setColor(storageIncome < 0 and 1 or 0, storageIncome > 0 and 1 or 0, 0)
-    textReactor.setColor((not reactorState) and 1 or 0, reactorState and 1 or 0, 0)
-    textIncome.setText(string.format("%s EU/t", formatNumber(storageIncome)))
-    textPercent.setText(string.format("%.2f%%", storagePercent * 100))
-    textStorage.setText(string.format("%s/%s EU", formatNumber(storageCurrent), formatNumber(storageMax)))
-    textReactor.setText(reactorState and "Reactor Enabled" or "Reactor Disabled")
+local function glassesDisplayEU()
+    setShadowText("income", string.format("%s EU/t", formatNumber(storageIncome)),
+        storageIncome < 0 and 1 or 0, storageIncome > 0 and 1 or 0, 0)
+    setShadowText("percent", string.format("%.2f%%", storagePercent * 100))
+    setShadowText("storage", string.format("%s/%s EU", formatNumber(storageCurrent), formatNumber(storageMax)))
+    setShadowText("reactor", reactorState and "Reactor Enabled" or "Reactor Disabled",
+        (not reactorState) and 1 or 0, reactorState and 1 or 0, 0)
 end
 
 print("Running EU monitor... (Press q to exit)")
@@ -74,7 +98,7 @@ while doContinue do
     storageCurrent = LSC.getEUStored()
     storagePercent = storageCurrent / storageMax
     storageIncome = LSC.getEUInputAverage() - LSC.getEUOutputAverage()
-    glassDisplayEU()
+    glassesDisplayEU()
     if storagePercent > stopValue then
         reactorState = false
         LSCSwitch.setOutput({ 0, 0, 0, 0, 0, 0 })
