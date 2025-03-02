@@ -3,7 +3,8 @@ component = require("component")
 
 -- #region config
 local textScale = 1
-local refresh = 1 / 5
+local refresh = 1 / 20
+local averageEUSeconds = 5
 local stopValue = 0.9
 local startValue = 0.8
 -- #endregion config
@@ -37,15 +38,22 @@ end
 
 --- @type table<string, Text2D>
 local texts = {}
+--- @type table<number>
+local EUHistory = {}
+local EUHistorySize = math.ceil(averageEUSeconds / refresh)
+local blackColor = { 0, 0, 0 }
+local redColor = { 255, 85, 85 }
+local greenColor = { 85, 255, 85 }
+local whiteColor = { 255, 255, 255 }
 local reactorState = false
 local glasses = component.glasses
 local LSC = component.gt_machine
 local LSCSwitch = component.redstone
 
----@param glasses glasses The glasses component.
----@param key string The key for the text.
----@param x number The x position of the text.
----@param y number The y position of the text.
+---@param glasses glasses # The glasses component.
+---@param key string # The key for the text.
+---@param x number # The x position of the text.
+---@param y number # The y position of the text.
 local function createShadowText(glasses, key, x, y)
     texts[key .. "shadow"] = glasses.addTextLabel()
     texts[key .. "shadow"].setPosition(x + 1, y + 1)
@@ -57,22 +65,22 @@ local function createShadowText(glasses, key, x, y)
     texts[key].setColor(1, 1, 1)
 end
 
----@param key string The key for the text.
----@param text string The text to display.
----@param r number? # The red component from `0.0` to `1.0`.
----@param g number? # The green component from `0.0` to `1.0`.
----@param b number? # The blue component from `0.0` to `1.0`.
+---@param key string # The key for the text.
+---@param text string # The text to display.
+---@param r number? # The red component from `0` to `255`.
+---@param g number? # The green component from `0` to `255`.
+---@param b number? # The blue component from `0` to `255 `.
 local function setShadowText(key, text, r, g, b)
     texts[key .. "shadow"].setText(text)
     texts[key].setText(text)
     if r == nil or g == nil or b == nil then
         return
     end
-    texts[key .. "shadow"].setColor(r / 4, g / 4, b / 4)
-    texts[key].setColor(r, g, b)
+    texts[key .. "shadow"].setColor(r / 1028, g / 1028, b / 1028)
+    texts[key].setColor(r / 255, g / 255, b / 255)
 end
 
----@param glasses glasses The glasses component.
+---@param glasses glasses # The glasses component.
 local function glassesSetup(glasses)
     glasses.removeAll()
     createShadowText(glasses, "income", 0, 10)
@@ -92,16 +100,22 @@ while doContinue do
     local storageMax = LSC.getEUMaxStored()
     local storageCurrent = LSC.getEUStored()
     local storagePercent = storageCurrent / storageMax
-    local storageIncome = LSC.getEUInputAverage() - LSC.getEUOutputAverage()
-
-    setShadowText("income", string.format("%s EU/t", formatNumber(storageIncome)),
-        storageIncome < 0 and 1 or 0, storageIncome > 0 and 1 or 0, 0)
+    EUHistory[#EUHistory + 1] = LSC.getEUInputAverage() - LSC.getEUOutputAverage()
+    if #EUHistory > EUHistorySize then
+        table.remove(EUHistory, 1)
+    end
+    local storageIncomeHistory = 0
+    for i = 1, #EUHistory do
+        storageIncomeHistory = storageIncomeHistory + EUHistory[i]
+    end
+    setShadowText("income", string.format("%s EU/t", formatNumber(math.floor(storageIncomeHistory / EUHistorySize))),
+        table.unpack(storageIncomeHistory < 0 and redColor or storageIncomeHistory > 0 and greenColor or blackColor))
     setShadowText("percent", string.format("%.2f%%", storagePercent * 100))
     setShadowText("storage", string.format("%s/%s EU", formatNumber(storageCurrent), formatNumber(storageMax)))
     setShadowText("reactor", reactorState and "Reactor Enabled" or "Reactor Disabled",
-        (not reactorState) and 1 or 0, reactorState and 1 or 0, 0)
+        table.unpack(reactorState and greenColor or redColor))
 
-        if storagePercent > stopValue then
+    if storagePercent > stopValue then
         reactorState = false
         LSCSwitch.setOutput({ 0, 0, 0, 0, 0, 0 })
     end
