@@ -4,7 +4,6 @@ component = require("component")
 -- #region config
 local textScale = 1
 local refresh = 1 / 20
-local averageEUSeconds = 5
 local stopValue = 0.9
 local startValue = 0.8
 -- #endregion config
@@ -36,25 +35,59 @@ local function formatNumber(number)
 end
 
 
+local function extractNumber(alfanum)
+    return alfanum:match("([%d,]+)")
+end
+
+
+local function tonumberSub(alfanum)
+    num = tonumber(alfanum)
+    if num == nil then
+        n, _ = alfanum:gsub(",", "")
+        num = tonumber(n)
+    end
+    -- print(num)
+    return num
+end
+
+
 --- @type table<string, Text2D>
 local texts = {}
---- @type table<number>
-local EUHistory = {}
-local EUHistorySize = math.ceil(averageEUSeconds / refresh)
-local blackColor = { 0, 0, 0 }
-local redColor = { 255, 85, 85 }
-local greenColor = { 85, 255, 85 }
-local whiteColor = { 255, 255, 255 }
+local BLACK_COLOR = { 0, 0, 0 }
+local RED_COLOR = { 255, 85, 85 }
+local GREEN_COLOR = { 85, 255, 85 }
+local WHITE_COLOR = { 255, 255, 255 }
+local ICON_OFFSET = 14
 local reactorState = false
 local glasses = component.glasses
 local LSC = component.gt_machine
 local LSCSwitch = component.redstone
+local DB = component.isAvailable("database") and component.database or nil
+if DB == nil then
+    print("Install 'Database Upgrade (Tier 3)' for fancy icons!")
+end
+
+---@class Item
+---@field name string
+---@field damage number
+---@field nbt string?
 
 ---@param glasses glasses # The glasses component.
 ---@param key string # The key for the text.
 ---@param x number # The x position of the text.
 ---@param y number # The y position of the text.
-local function createShadowText(glasses, key, x, y)
+---@param icon? Item # The icon to display.
+local function createShadowText(glasses, key, x, y, icon)
+    y = y * 10
+    if DB ~= nil and icon ~= nil then
+        DB.clear(1)
+        DB.set(y / 10, icon.name, icon.damage, icon.nbt)
+        local icon = glasses.addItem()
+        icon.setPosition(x - 2, y - 4)
+        icon.setItem(DB.address, y / 10)
+        icon.setScale(0.5)
+        x = x + ICON_OFFSET
+    end
     texts[key .. "shadow"] = glasses.addTextLabel()
     texts[key .. "shadow"].setPosition(x + 1, y + 1)
     texts[key .. "shadow"].setScale(textScale)
@@ -83,12 +116,13 @@ end
 ---@param glasses glasses # The glasses component.
 local function glassesSetup(glasses)
     glasses.removeAll()
-    createShadowText(glasses, "income", 0, 10)
-    createShadowText(glasses, "percent", 0, 20)
-    createShadowText(glasses, "storage", 0, 30)
-    createShadowText(glasses, "reactor", 0, 40)
+    createShadowText(glasses, "income", 0, 1, { name = "universalsingularities:universal.general.singularity", damage = 20, nbt = nil })
+    createShadowText(glasses, "percent", 0, 2, { name = "gregtech:gt.metaitem.01", damage = 32762, nbt = nil })
+    createShadowText(glasses, "storage", 0, 3, { name = "gregtech:gt.metaitem.01", damage = 32609, nbt = nil })
+    createShadowText(glasses, "reactor", 0, 4, { name = "gregtech:gt.metaitem.01", damage = 32416, nbt = nil })
 end
 
+fillDatabase(DB)
 glassesSetup(glasses)
 if startValue >= stopValue then
     print("Start value must be less than stop value")
@@ -97,23 +131,24 @@ end
 
 print("Running EU monitor... (Press q to exit)")
 while doContinue do
-    local storageMax = LSC.getEUMaxStored()
-    local storageCurrent = LSC.getEUStored()
+    -- for k,v in pairs(component.gt_machine.getSensorInformation()) do print(k,v) end
+    local sensorData = LSC.getSensorInformation()
+    local storageCurrentText = extractNumber(sensorData[2])
+    local storageMaxText = extractNumber(sensorData[5])
+    local EUInputAverageText = extractNumber(sensorData[10])
+    local EUOutputAverageText = extractNumber(sensorData[11])
+    local storageCurrent = tonumberSub(storageCurrentText)
+    local storageMax = tonumberSub(storageMaxText)
+    local EUInputAverage = tonumberSub(EUInputAverageText)
+    local EUOutputAverage = tonumberSub(EUOutputAverageText)
     local storagePercent = storageCurrent / storageMax
-    EUHistory[#EUHistory + 1] = LSC.getEUInputAverage() - LSC.getEUOutputAverage()
-    if #EUHistory > EUHistorySize then
-        table.remove(EUHistory, 1)
-    end
-    local storageIncomeHistory = 0
-    for i = 1, #EUHistory do
-        storageIncomeHistory = storageIncomeHistory + EUHistory[i]
-    end
-    setShadowText("income", string.format("%s EU/t", formatNumber(math.floor(storageIncomeHistory / EUHistorySize))),
-        table.unpack(storageIncomeHistory < 0 and redColor or storageIncomeHistory > 0 and greenColor or blackColor))
-    setShadowText("percent", string.format("%.2f%%", storagePercent * 100))
-    setShadowText("storage", string.format("%s/%s EU", formatNumber(storageCurrent), formatNumber(storageMax)))
-    setShadowText("reactor", reactorState and "Reactor Enabled" or "Reactor Disabled",
-        table.unpack(reactorState and greenColor or redColor))
+    local EUIncome = EUInputAverage - EUOutputAverage
+    setShadowText("income", string.format("%s EU/t", formatNumber(EUIncome)),
+        table.unpack(EUIncome < 0 and RED_COLOR or EUIncome > 0 and GREEN_COLOR or BLACK_COLOR))
+    setShadowText("percent", string.format("%.6f%%", storagePercent * 100))
+    setShadowText("storage", string.format("%s/%s EU", storageCurrentText, storageMaxText))
+    setShadowText("reactor", (reactorState and "Reactor Enabled (" or "Reactor Disabled (") .. sensorData[16] .. ")",
+        table.unpack(reactorState and GREEN_COLOR or RED_COLOR))
 
     if storagePercent > stopValue then
         reactorState = false

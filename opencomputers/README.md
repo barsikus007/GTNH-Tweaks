@@ -26,6 +26,10 @@ Paste with middle-click in OC terminal:
 2. Launch with `power`
 3. *Optional:* Add to autorun with `echo "power" >> .shrc`
 
+### TODO
+
+- Use decimal notation
+
 ## [TPS](tps.lua)
 
 ### Abstract
