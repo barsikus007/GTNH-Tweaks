@@ -23,7 +23,7 @@ chatColors:true
 chatLinks:true
 chatLinksPrompt:true
 chatOpacity:1.0
-snooperEnabled:true
+snooperEnabled:false
 fullscreen:false
 enableVsync:false
 hideServerAddress:false
@@ -159,7 +159,7 @@ key_ttmisc.toggleArmor:0
 key_key.materialCosts:0
 key_key.clipboardPaste:0
 key_key.placeItem:25
-key_key.toolConfig:0
+key_key.toolConfig:51
 key_key.toolProfileChange:0
 key_key.toggleFlight:0
 key_key.toggleMagnet:0
