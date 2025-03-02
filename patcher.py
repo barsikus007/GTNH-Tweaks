@@ -151,7 +151,7 @@ def main(minecraft_home: Path, dry_run: bool = True):
 
 
 if __name__ == "__main__":
-    TARGET_VERSION = "2.7.2"
+    TARGET_VERSION = "2.7.3"
     DEFAULT_PATH = rf"C:\Users\Admin\scoop\apps\prismlauncher\current\instances\GTNH-{TARGET_VERSION}\.minecraft"
     print(f"GTNH patcher target version: {TARGET_VERSION}")
     input_path = input(f"Enter path to GTNH .minecraft folder: ({DEFAULT_PATH})\n>>> ") or DEFAULT_PATH

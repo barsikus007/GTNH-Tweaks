@@ -1,6 +1,6 @@
 # GTNH Tweaks
 
-(target 2.7.2)
+(target 2.7.3)
 
 My GTNH setup and shitcoded python patcher for configs
 
@@ -51,7 +51,7 @@ To fix my eyes at all nights at endgame
 I:Mode=0
 I:Mode=1
 S:"Dimension Blacklist"=7
-S:"Dimension Blacklist"=-1,0,1,7,180
+S:"Dimension Blacklist"=-1,0,1,7,180,230
 ```
 
 ### InGameInfoXML/InGameInfo.xml
@@ -119,8 +119,8 @@ B:"View mode"=true
 To show NBT data with shift
 
 ```ini
-B:item_nbt=false
-B:item_nbt=true
+    B:item_nbt=false
+    B:item_nbt=true
 ```
 
 ## mods/
@@ -133,7 +133,7 @@ B:item_nbt=true
 
 ### Remove
 
-journeymap-1.7.10-5.2.7-fairplay.jar
+journeymap-1.7.10-5.2.8-fairplay.jar
 
 ## resourcepacks/
 
@@ -153,11 +153,10 @@ journeymap-1.7.10-5.2.7-fairplay.jar
 
 - Core
   - migrate patcher to diff/sed-like syntax
-  - update journeymap settings
 - Patch
   - generate HardcoreDarkness.cfg/Dimension Blacklist
     - is it working?
-  - add bag with test tools to bookmarks
+  - add page with test tools to bookmarks
   - journeymap settings
 - Sync
   - journeymap/data/
