@@ -5,11 +5,11 @@ event = require("event")
 component = require("component")
 
 tpsCard = component.tps_card
-gpu = component.gpu
 
 refresh = 1 / 10
 doContinue = true
 term.clear()
+gpu = term.gpu()
 
 gpu.set(1, 1, "Loading, please wait...")
 

@@ -6,6 +6,7 @@ local textScale = 1
 local refresh = 1 / 20
 local stopValue = 0.9
 local startValue = 0.8
+local displayMetricNumbersIfAbove = 1e15
 -- #endregion config
 
 doContinue = true
@@ -21,6 +22,14 @@ end
 
 event.register("key_down", keyPressed)
 
+function formatMetricNumber(number, format)
+    format = format or "%.1f"
+    if math.abs(number) < 1000 then return tostring(math.floor(number)) end
+    local suffixes = { "k", "M", "G", "T", "P", "E", "Z", "Y" }
+    local power = 1
+    while math.abs((number / 1000 ^ power)) > 1000 do power = power + 1 end
+    return tostring(string.format(format, (number / 1000 ^ power))) .. suffixes[power]
+end
 
 local function formatNumber(number)
     -- https://stackoverflow.com/a/10992898
@@ -64,7 +73,7 @@ local LSC = component.gt_machine
 local LSCSwitch = component.redstone
 local DB = component.isAvailable("database") and component.database or nil
 if DB == nil then
-    print("Install 'Database Upgrade (Tier 3)' for fancy icons!")
+    print("Install 'Database Upgrade' for fancy icons!")
 end
 
 ---@class Item
@@ -113,11 +122,20 @@ local function setShadowText(key, text, r, g, b)
     texts[key].setColor(r / 255, g / 255, b / 255)
 end
 
+---@param DB database? # The database component.
+local function fillDatabase(DB)
+    if DB == nil then
+        return
+    end
+end
+
 ---@param glasses glasses # The glasses component.
 local function glassesSetup(glasses)
     glasses.removeAll()
-    createShadowText(glasses, "income", 0, 1, { name = "universalsingularities:universal.general.singularity", damage = 20, nbt = nil })
+    createShadowText(glasses, "income", 0, 1,
+        { name = "universalsingularities:universal.general.singularity", damage = 20, nbt = nil })
     createShadowText(glasses, "percent", 0, 2, { name = "gregtech:gt.metaitem.01", damage = 32762, nbt = nil })
+    -- "{GT.ItemCharge:"..math.ceil(storagePercent*9223372036854775807).."L}"
     createShadowText(glasses, "storage", 0, 3, { name = "gregtech:gt.metaitem.01", damage = 32609, nbt = nil })
     createShadowText(glasses, "reactor", 0, 4, { name = "gregtech:gt.metaitem.01", damage = 32416, nbt = nil })
 end
@@ -143,10 +161,17 @@ while doContinue do
     local EUOutputAverage = tonumberSub(EUOutputAverageText)
     local storagePercent = storageCurrent / storageMax
     local EUIncome = EUInputAverage - EUOutputAverage
-    setShadowText("income", string.format("%s EU/t", formatNumber(EUIncome)),
+    local EUIncomeShow = EUIncome > displayMetricNumbersIfAbove
+        and formatMetricNumber(EUIncome)
+        or formatNumber(EUIncome)
+    local storageCurrentShow = storageCurrent > displayMetricNumbersIfAbove
+        and formatMetricNumber(storageCurrent)
+        or storageCurrentText
+    local storageMaxShow = storageMax > displayMetricNumbersIfAbove and formatMetricNumber(storageMax) or storageMaxText
+    setShadowText("income", string.format("%s EU/t", EUIncomeShow),
         table.unpack(EUIncome < 0 and RED_COLOR or EUIncome > 0 and GREEN_COLOR or BLACK_COLOR))
-    setShadowText("percent", string.format("%.6f%%", storagePercent * 100))
-    setShadowText("storage", string.format("%s/%s EU", storageCurrentText, storageMaxText))
+    setShadowText("percent", string.format(storagePercent < 0.01 and "%.6f%%" or "%.2f%%", storagePercent * 100))
+    setShadowText("storage", string.format("%s/%s EU", storageCurrentShow, storageMaxShow))
     setShadowText("reactor", (reactorState and "Reactor Enabled (" or "Reactor Disabled (") .. sensorData[16] .. ")",
         table.unpack(reactorState and GREEN_COLOR or RED_COLOR))
 

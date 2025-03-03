@@ -16,6 +16,7 @@ Also controls redstone output based on power usage (base values are stop at 90% 
    3. Wear `AR Glasses`
    4. ???
    5. PROFIT!
+   6. *Optional:* Add another `Adapter` with `Database Upgrade` for fancy icons
 2. Be consistent with `/xu_tps` and `IgiXML`
 
 ### Installation
@@ -28,13 +29,22 @@ Paste with middle-click in OC terminal:
 
 ### TODO
 
-- Use decimal notation
+- Add wireless EU
+- Make icons dynamic
 
 ## [TPS](tps.lua)
 
 ### Abstract
 
 Shows per-world tick-time on the screen
+
+### Installation
+
+Paste with middle-click in OC terminal:
+
+1. Download with `wget https://raw.githubusercontent.com/barsikus007/GTNH-tweaks/master/opencomputers/tps.lua`
+2. Launch with `tps`
+3. *Optional:* Add to autorun with `echo "tps" >> .shrc`
 
 ### Credits
 
