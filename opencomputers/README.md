@@ -50,6 +50,25 @@ Paste with middle-click in OC terminal:
 
 @_Pandoro
 
+## [Printty](printty/printer.lua)
+
+### Abstract
+
+PNG splitter and printer (with line merging)
+
+### Installation
+
+```shell
+wget https://raw.githubusercontent.com/barsikus007/GTNH-tweaks/master/opencomputers/hpm-patcher.lua && hpm-patcher
+hpm install libpngimage
+
+wget https://raw.githubusercontent.com/barsikus007/GTNH-tweaks/master/opencomputers/printty/printer.lua
+# example image
+wget https://raw.githubusercontent.com/barsikus007/GTNH-tweaks/master/opencomputers/printty/amogus64x.png
+
+printer
+```
+
 ## Cheat Sheet
 
 ### Paste with middle-click and run
