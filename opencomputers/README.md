@@ -69,6 +69,18 @@ wget https://raw.githubusercontent.com/barsikus007/GTNH-tweaks/master/opencomput
 printer
 ```
 
+## [YT Music to Tape](music/ytdl.lua)
+
+### Abstract
+
+Downloads music from YouTube and converts it to tape DFPWM format
+
+### Installation
+
+1. run server with `cd server/ && bun i && bun run build && bun start`
+2. `wget https://raw.githubusercontent.com/barsikus007/GTNH-tweaks/master/opencomputers/music/ytdl.lua`
+3. `ytdl dQw4w9WgXcQ`
+
 ## Cheat Sheet
 
 ### Paste with middle-click and run
