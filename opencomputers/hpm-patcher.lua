@@ -10,11 +10,11 @@ hpm_file:close()
 
 print("Patching hpm.lua")
 print("Replacing http with https")
-oldLen = #hpm_file_content
+local oldLen = #hpm_file_content
 hpm_file_content = hpm_file_content:gsub(
     "yY=function%(EyljhkFp,uGDn542,DQ%)\n",
     'yY=function(EyljhkFp,uGDn542,DQ) EyljhkFp=EyljhkFp:gsub("http://","https://")\n')
-newLen = #hpm_file_content
+local newLen = #hpm_file_content
 
 if oldLen == newLen then
     print("Nothing to patch in hpm.lua")

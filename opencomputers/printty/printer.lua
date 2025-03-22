@@ -6,9 +6,9 @@ local PNGImage = require('libPNGimage')
 ---@type printer3d
 local printer = component.printer3d
 
-image_title = "big §4sus"
-image_input = "amogus64x.png"
-file = io.open(image_input, "rb")
+local image_title = "big §4sus"
+local image_input = "amogus64x.png"
+local file = io.open(image_input, "rb")
 if file == nil then
     print("Failed to open file: " .. image_input)
     return
@@ -88,7 +88,7 @@ local function printChunk(chunk_x, chunk_y)
         ", " .. tostring(chunk_y) .. "] of " .. "[" .. image_chunk_x - 1 .. ", " .. image_chunk_y - 1 .. "]" .. " done")
     print(printer.status())
     print("Committing successfully" and printer.commit() or "Commit failed")
-    status, progress = printer.status()
+    local status, progress = printer.status()
     while status == "busy" do
         print("Progress: " .. tostring(progress))
         os.sleep(0.25)

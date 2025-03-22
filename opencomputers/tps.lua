@@ -1,23 +1,21 @@
 -- Origin: https://host7.dev/oc/tpsCard.lua
 -- Source: https://github.com/GTNewHorizons/OpenComputers/blob/master/src/main/scala/li/cil/oc/server/component/TpsCard.scala
-term = require("term")
-event = require("event")
-component = require("component")
+local term = require("term")
+local event = require("event")
+local component = require("component")
 
-tpsCard = component.tps_card
+local tpsCard = component.tps_card
 
-refresh = 1 / 10
-doContinue = true
+local refresh = 1 / 10
 term.clear()
-gpu = term.gpu()
-
+local gpu = term.gpu()
 gpu.set(1, 1, "Loading, please wait...")
 
-function keyPressed(event_name, player_uuid, ascii)
-    local c = string.char(ascii)
-    if c == 'q' then
+local doContinue = true
+
+local function keyPressed(event_name, player_uuid, ascii)
+    if ascii < 256 and string.char(ascii) == 'q' then
         doContinue = false
-        term.clear()
     else
         event.register("key_down", keyPressed)
     end
@@ -26,13 +24,13 @@ end
 event.register("key_down", keyPressed)
 
 
-allDimNames = tpsCard.getAllDims()
+local allDimNames = tpsCard.getAllDims()
 
 while (doContinue) do
-    count = 2
-    totalTickTime = tpsCard.getOverallTickTime()
-    allTickTimes = tpsCard.getAllTickTimes()
-    tps = tpsCard.convertTickTimeIntoTps(totalTickTime)
+    local count = 2
+    local totalTickTime = tpsCard.getOverallTickTime()
+    local allTickTimes = tpsCard.getAllTickTimes()
+    local tps = tpsCard.convertTickTimeIntoTps(totalTickTime)
     term.clear()
     for dimId, tickTime in pairs(allTickTimes) do
         local dimName = allDimNames[dimId]
@@ -46,8 +44,8 @@ while (doContinue) do
         end
     end
 
-    -- entities = tpsCard.getTileEntitiesListForDim(0)
-    -- sortedEntities = {}
+    -- local entities = tpsCard.getTileEntitiesListForDim(0)
+    -- local sortedEntities = {}
     -- for name, count in pairs(entities) do table.insert(sortedEntities, { name, count }) end
     -- table.sort(sortedEntities, function(a, b) return a[2] > b[2] end)
     -- for _, entity in pairs(sortedEntities) do

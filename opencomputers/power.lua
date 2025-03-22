@@ -1,5 +1,5 @@
-event = require("event");
-component = require("component")
+local event = require("event");
+local component = require("component")
 
 -- #region config
 local textScale = 1
@@ -9,11 +9,10 @@ local startValue = 0.8
 local displayMetricNumbersIfAbove = 1e15
 -- #endregion config
 
-doContinue = true
+local doContinue = true
 
-function keyPressed(event_name, player_uuid, ascii)
-    local c = string.char(ascii)
-    if c == 'q' then
+local function keyPressed(event_name, player_uuid, ascii)
+    if ascii < 256 and string.char(ascii) == 'q' then
         doContinue = false
     else
         event.register("key_down", keyPressed)
@@ -22,13 +21,16 @@ end
 
 event.register("key_down", keyPressed)
 
-function formatMetricNumber(number, format)
+local function formatMetricNumber(number, format)
     format = format or "%.1f"
     if math.abs(number) < 1000 then return tostring(math.floor(number)) end
     local suffixes = { "k", "M", "G", "T", "P", "E", "Z", "Y" }
-    local power = 1
-    while math.abs((number / 1000 ^ power)) > 1000 do power = power + 1 end
-    return tostring(string.format(format, (number / 1000 ^ power))) .. suffixes[power]
+    local power = 0
+    while math.abs(number) > 1000 do
+        number = number / 1000
+        power = power + 1
+    end
+    return tostring(string.format(format, number)) .. suffixes[power]
 end
 
 local function formatNumber(number)
@@ -49,14 +51,10 @@ local function extractNumber(alfanum)
 end
 
 
+--- @param alfanum string
 local function tonumberSub(alfanum)
-    num = tonumber(alfanum)
-    if num == nil then
-        n, _ = alfanum:gsub(",", "")
-        num = tonumber(n)
-    end
-    -- print(num)
-    return num
+    local n, _ = alfanum:gsub(",", "")
+    return tonumber(n)
 end
 
 
