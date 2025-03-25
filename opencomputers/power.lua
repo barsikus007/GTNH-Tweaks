@@ -153,10 +153,14 @@ while doContinue do
     local storageMaxText = extractNumber(sensorData[5])
     local EUInputAverageText = extractNumber(sensorData[10])
     local EUOutputAverageText = extractNumber(sensorData[11])
+    -- local wirelessEnable = extractBoolean(sensorData[18])
+    local storageCurrentWirelessText = extractNumber(sensorData[23])
     local storageCurrent = tonumberSub(storageCurrentText)
     local storageMax = tonumberSub(storageMaxText)
     local EUInputAverage = tonumberSub(EUInputAverageText)
     local EUOutputAverage = tonumberSub(EUOutputAverageText)
+    local storageCurrentWireless = tonumberSub(storageCurrentWirelessText)
+    storageCurrent = storageCurrent + storageCurrentWireless
     local storagePercent = storageCurrent / storageMax
     local EUIncome = EUInputAverage - EUOutputAverage
     local EUIncomeShow = EUIncome > displayMetricNumbersIfAbove

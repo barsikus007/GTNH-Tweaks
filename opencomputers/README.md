@@ -30,8 +30,8 @@ Paste with middle-click in OC terminal:
 ### TODO
 
 - Make icons dynamic
-- Add wireless EU
-  - Or convert this script to InGameInfoLUA after events update in [this program](https://github.com/Navatusein/GTNH-OC-LSC-Control)
+- ~~Add wireless EU~~
+  - convert this script to InGameInfoLUA after events update in [this program](https://github.com/Navatusein/GTNH-OC-LSC-Control)
 
 ## [TPS](tps.lua)
 
