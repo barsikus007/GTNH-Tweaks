@@ -135,7 +135,7 @@ def patch_resourcepacks(resourcepacks_folder: Path):
     )
 
 
-def main(minecraft_home: Path, dry_run: bool = True):
+def main(minecraft_home: Path, *, dry_run: bool = True):
     md_file: dict = parse_md(Path("README.md").read_text(encoding="utf-8"))["GTNH Tweaks"]  # type: ignore
     patch_config(minecraft_home / "config", md_file["config/"], dry_run)
     print()
@@ -157,4 +157,4 @@ if __name__ == "__main__":
     input_path = input(f"Enter path to GTNH .minecraft folder: ({DEFAULT_PATH})\n>>> ") or DEFAULT_PATH
     main_dry_run = input("Dry run? (Y/n)\n>>> ").lower() != "n"
     main_minecraft_home = Path(input_path)
-    main(main_minecraft_home, main_dry_run)
+    main(main_minecraft_home, dry_run=main_dry_run)
