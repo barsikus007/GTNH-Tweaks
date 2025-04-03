@@ -462,6 +462,7 @@ Trash, Lignite Coal Ore [End]
 Trash, Oilsands Ore
 `;
 // #endregion Ore Lists
+// Trash: (^ore.*(Lignite|Oilsands))
 
 const ores = ores10s;
 const oresArray = ores
@@ -482,19 +483,24 @@ const generateOreSet = (oresArray) => {
       return;
     }
     truncatedOre = truncatedOre.replace(/Ore.*/g, "").replace(/\s/g, "");
+    // Patch for Raw ores
+    truncatedOre = truncatedOre.replace("Raw", "");
+    truncatedOre = truncatedOre.replace("Tengam", "TengamRaw");
+    // Patch for Plutonium ores
+    truncatedOre = truncatedOre.replace(/\s?(235|238|239|241)/g, "");
     // Patch for GT++ ores
     truncatedOre = truncatedOre.replace(/\s?\(.*\)/g, "");
     // Patch for Enriched-NaquadahOxideMixture
-    truncatedOre = truncatedOre.replace("NaquadahOxideMixture", "NaquadahO*");
+    truncatedOre = truncatedOre.replace("NaquadahOxideMixture", "NaquadahO");
     // Patch for Chromo-Alumino-Povondraite
     truncatedOre = truncatedOre.replace(
       "Chromo-Alumino-Povondraite",
-      "Chromo-Al*"
+      "Chromo-Al"
     );
     // Patch for PalladiumMetallicPowder
     truncatedOre = truncatedOre.replace(
       "PalladiumMetallicPowder",
-      "PalladiumMe*"
+      "PalladiumMe"
     );
     oresSet.add(truncatedOre);
   });
