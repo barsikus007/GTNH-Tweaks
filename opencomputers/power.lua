@@ -149,32 +149,37 @@ print("Running EU monitor... (Press q to exit)")
 while doContinue do
     -- for k,v in pairs(component.gt_machine.getSensorInformation()) do print(k,v) end
     local sensorData = LSC.getSensorInformation()
-    local storageCurrentText = extractNumber(sensorData[2])
-    local storageMaxText = extractNumber(sensorData[5])
+    local storageStoredText = extractNumber(sensorData[2])
+    local storageCapacityText = extractNumber(sensorData[5])
     local EUInputAverageText = extractNumber(sensorData[10])
     local EUOutputAverageText = extractNumber(sensorData[11])
-    -- local wirelessEnable = extractBoolean(sensorData[18])
-    local storageCurrentWirelessText = extractNumber(sensorData[23])
-    local storageCurrent = tonumberSub(storageCurrentText)
-    local storageMax = tonumberSub(storageMaxText)
+    local storageChargeLeft = sensorData[16]
+    -- local wirelessEnabled = extractBoolean(sensorData[18])
+    local wirelessEnabled = true
+    local storageStoredWirelessText = extractNumber(sensorData[23])
+    local storageStored = tonumberSub(storageStoredText)
+    local storageCapacity = tonumberSub(storageCapacityText)
     local EUInputAverage = tonumberSub(EUInputAverageText)
     local EUOutputAverage = tonumberSub(EUOutputAverageText)
-    local storageCurrentWireless = tonumberSub(storageCurrentWirelessText)
-    storageCurrent = storageCurrent + storageCurrentWireless
-    local storagePercent = storageCurrent / storageMax
+    if wirelessEnabled then
+        local storageCurrentWireless = tonumberSub(storageStoredWirelessText)
+        storageStored = storageStored + storageCurrentWireless
+    end
+    local storagePercent = storageStored / storageCapacity
     local EUIncome = EUInputAverage - EUOutputAverage
     local EUIncomeShow = EUIncome > displayMetricNumbersIfAbove
         and formatMetricNumber(EUIncome)
         or formatNumber(EUIncome)
-    local storageCurrentShow = storageCurrent > displayMetricNumbersIfAbove
-        and formatMetricNumber(storageCurrent)
-        or storageCurrentText
-    local storageMaxShow = storageMax > displayMetricNumbersIfAbove and formatMetricNumber(storageMax) or storageMaxText
+    local storageStoredShow = storageStored > displayMetricNumbersIfAbove
+        and formatMetricNumber(storageStored)
+        or storageStoredText
+    local storageCapacityShow = storageCapacity > displayMetricNumbersIfAbove and
+        formatMetricNumber(storageCapacity) or storageCapacityText
     setShadowText("income", string.format("%s EU/t", EUIncomeShow),
         table.unpack(EUIncome < 0 and RED_COLOR or EUIncome > 0 and GREEN_COLOR or BLACK_COLOR))
     setShadowText("percent", string.format(storagePercent < 0.01 and "%.6f%%" or "%.2f%%", storagePercent * 100))
-    setShadowText("storage", string.format("%s/%s EU", storageCurrentShow, storageMaxShow))
-    setShadowText("reactor", (reactorState and "Reactor Enabled (" or "Reactor Disabled (") .. sensorData[16] .. ")",
+    setShadowText("storage", string.format("%s/%s EU", storageStoredShow, storageCapacityShow))
+    setShadowText("reactor", (reactorState and "Reactor Enabled (" or "Reactor Disabled (") .. storageChargeLeft .. ")",
         table.unpack(reactorState and GREEN_COLOR or RED_COLOR))
 
     if storagePercent > stopValue then

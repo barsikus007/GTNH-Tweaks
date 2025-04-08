@@ -23,15 +23,14 @@ Also controls redstone output based on power usage (base values are stop at 90% 
 
 Paste with middle-click in OC terminal:
 
-1. Download with `wget https://raw.githubusercontent.com/barsikus007/GTNH-tweaks/master/opencomputers/power.lua`
+1. Download with `wget https://raw.githubusercontent.com/barsikus007/GTNH-tweaks/master/opencomputers/power.lua -f`
 2. Launch with `power`
 3. *Optional:* Add to autorun with `echo "power" >> .shrc`
 
 ### TODO
 
 - Make icons dynamic
-- ~~Add wireless EU~~
-  - convert this script to InGameInfoLUA after events update in [this program](https://github.com/Navatusein/GTNH-OC-LSC-Control)
+- Convert this script to InGameInfoLUA with LSC module
 
 ## [TPS](tps.lua)
 
