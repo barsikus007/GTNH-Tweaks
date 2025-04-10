@@ -3,6 +3,7 @@
 local term = require("term")
 local event = require("event")
 local component = require("component")
+local keyboard = require("keyboard")
 
 local tpsCard = component.tps_card
 
@@ -13,8 +14,8 @@ gpu.set(1, 1, "Loading, please wait...")
 
 local doContinue = true
 
-local function keyPressed(event_name, player_uuid, ascii)
-    if ascii < 256 and string.char(ascii) == 'q' then
+local function keyPressed(event_name, producer_address, ascii, keyCode)
+    if keyCode == keyboard.keys.q then
         doContinue = false
     else
         event.register("key_down", keyPressed)

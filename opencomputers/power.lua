@@ -1,5 +1,6 @@
 local event = require("event");
 local component = require("component")
+local keyboard = require("keyboard")
 
 -- #region config
 local textScale = 1
@@ -11,16 +12,18 @@ local displayMetricNumbersIfAbove = 1e15
 
 local doContinue = true
 
-local function keyPressed(event_name, player_uuid, ascii)
-    if ascii < 256 and string.char(ascii) == 'q' then
+local function keyPressed(event_name, producer_address, ascii, keyCode)
+    if keyCode == keyboard.keys.q then
         doContinue = false
     else
         event.register("key_down", keyPressed)
     end
 end
 
-event.register("key_down", keyPressed)
+event.register("key_up", keyPressed)
 
+--- @param number number
+--- @param format string?
 local function formatMetricNumber(number, format)
     format = format or "%.1f"
     if math.abs(number) < 1000 then return tostring(math.floor(number)) end
@@ -33,6 +36,7 @@ local function formatMetricNumber(number, format)
     return tostring(string.format(format, number)) .. suffixes[power]
 end
 
+--- @param number number
 local function formatNumber(number)
     -- https://stackoverflow.com/a/10992898
     local i, j, minus, int, fraction = tostring(number):find('([-]?)(%d+)([.]?%d*)')
@@ -45,16 +49,58 @@ local function formatNumber(number)
     return minus .. int:reverse():gsub("^,", "") .. fraction
 end
 
-
+--- @param alfanum string
 local function extractNumber(alfanum)
     return alfanum:match("([%d,]+)")
 end
 
+--- @param stringToCheck string
+local function extractEnabled(stringToCheck)
+    return stringToCheck:lower():match("enabled") ~= nil
+end
 
 --- @param alfanum string
 local function tonumberSub(alfanum)
     local n, _ = alfanum:gsub(",", "")
     return tonumber(n)
+end
+
+---@param seconds number
+---@param parts number
+---@return string
+local function humanifyTime(seconds, parts)
+    -- https://github.com/Navatusein/GTNH-OC-LSC-Control/blob/09e07cfbded38490df448e7c9121ff4f9b1b9ee4/lib/gui-lib.lua#L137
+    parts = (parts and tonumber(parts) or 4)
+
+    local time_units = {
+        { name = "y",   value = 31536000 },
+        { name = "m",   value = 2592000 },
+        { name = "d",   value = 86400 },
+        { name = "hr",  value = 3600 },
+        { name = "min", value = 60 },
+        { name = "sec", value = 1 }
+    }
+
+    if seconds < 1 then return "0 sec" end
+
+    local result = {}
+
+    for _, unit in ipairs(time_units) do
+        local unit_value = math.floor(seconds / unit.value)
+
+        if unit_value > 0 then
+            table.insert(result, unit_value .. " " .. unit.name)
+            seconds = seconds % unit.value
+        end
+
+        if #result >= parts then break end
+    end
+
+    if #result == 0 then
+        return seconds .. " sec"
+    end
+
+    return table.concat(result, " ")
 end
 
 
@@ -65,7 +111,7 @@ local RED_COLOR = { 255, 85, 85 }
 local GREEN_COLOR = { 85, 255, 85 }
 local WHITE_COLOR = { 255, 255, 255 }
 local ICON_OFFSET = 14
-local reactorState = false
+local generatorState = false
 local glasses = component.glasses
 local LSC = component.gt_machine
 local LSCSwitch = component.redstone
@@ -135,7 +181,7 @@ local function glassesSetup(glasses)
     createShadowText(glasses, "percent", 0, 2, { name = "gregtech:gt.metaitem.01", damage = 32762, nbt = nil })
     -- "{GT.ItemCharge:"..math.ceil(storagePercent*9223372036854775807).."L}"
     createShadowText(glasses, "storage", 0, 3, { name = "gregtech:gt.metaitem.01", damage = 32609, nbt = nil })
-    createShadowText(glasses, "reactor", 0, 4, { name = "gregtech:gt.metaitem.01", damage = 32416, nbt = nil })
+    createShadowText(glasses, "generator", 0, 4, { name = "gregtech:gt.metaitem.01", damage = 32416, nbt = nil })
 end
 
 fillDatabase(DB)
@@ -153,41 +199,58 @@ while doContinue do
     local storageCapacityText = extractNumber(sensorData[5])
     local EUInputAverageText = extractNumber(sensorData[10])
     local EUOutputAverageText = extractNumber(sensorData[11])
-    local storageChargeLeft = sensorData[16]
-    -- local wirelessEnabled = extractBoolean(sensorData[18])
-    local wirelessEnabled = true
-    local storageStoredWirelessText = extractNumber(sensorData[23])
-    local storageStored = tonumberSub(storageStoredText)
+    -- local storageChargeLeftShow = sensorData[16]
+    local storageChargeLeft = 0
+    local wirelessEnabled = extractEnabled(sensorData[18])
+    local storageLocalStored = tonumberSub(storageStoredText)
     local storageCapacity = tonumberSub(storageCapacityText)
     local EUInputAverage = tonumberSub(EUInputAverageText)
     local EUOutputAverage = tonumberSub(EUOutputAverageText)
+    local storageStored = storageLocalStored
     if wirelessEnabled then
+        local storageStoredWirelessText = extractNumber(sensorData[23])
         local storageCurrentWireless = tonumberSub(storageStoredWirelessText)
         storageStored = storageStored + storageCurrentWireless
     end
     local storagePercent = storageStored / storageCapacity
     local EUIncome = EUInputAverage - EUOutputAverage
+    if EUIncome > 0 then
+        storageChargeLeft = (storageCapacity - storageStored) / EUIncome
+    elseif EUIncome < 0 then
+        storageChargeLeft = storageStored / -EUIncome
+    else
+        storageChargeLeft = 0
+    end
+    storageChargeLeft = math.floor(storageChargeLeft / 20)
+
     local EUIncomeShow = EUIncome > displayMetricNumbersIfAbove
         and formatMetricNumber(EUIncome)
         or formatNumber(EUIncome)
+    local storageLocalStoredShow = formatMetricNumber(storageLocalStored)
     local storageStoredShow = storageStored > displayMetricNumbersIfAbove
         and formatMetricNumber(storageStored)
         or storageStoredText
     local storageCapacityShow = storageCapacity > displayMetricNumbersIfAbove and
         formatMetricNumber(storageCapacity) or storageCapacityText
+    local storageChargeLeftShow = humanifyTime(storageChargeLeft, 2)
+
     setShadowText("income", string.format("%s EU/t", EUIncomeShow),
         table.unpack(EUIncome < 0 and RED_COLOR or EUIncome > 0 and GREEN_COLOR or BLACK_COLOR))
     setShadowText("percent", string.format(storagePercent < 0.01 and "%.6f%%" or "%.2f%%", storagePercent * 100))
-    setShadowText("storage", string.format("%s/%s EU", storageStoredShow, storageCapacityShow))
-    setShadowText("reactor", (reactorState and "Reactor Enabled (" or "Reactor Disabled (") .. storageChargeLeft .. ")",
-        table.unpack(reactorState and GREEN_COLOR or RED_COLOR))
+    setShadowText("storage",
+        string.format("%s/%s EU (Local: %s EU)", storageStoredShow, storageCapacityShow, storageLocalStoredShow))
+    setShadowText("generator",
+        string.format("Generator %s (Dis/charge time: %s)",
+            generatorState and "Enabled" or "Disabled",
+            storageChargeLeftShow),
+        table.unpack(generatorState and GREEN_COLOR or RED_COLOR))
 
     if storagePercent > stopValue then
-        reactorState = false
+        generatorState = false
         LSCSwitch.setOutput({ 0, 0, 0, 0, 0, 0 })
     end
     if storagePercent < startValue then
-        reactorState = true
+        generatorState = true
         LSCSwitch.setOutput({ 15, 15, 15, 15, 15, 15 })
     end
     os.sleep(refresh)
