@@ -514,9 +514,10 @@ const oreDictCardMaxLen = 256;
 const oresSet = generateOreSet(oresArray);
 const tempOreSet = new Set();
 let oreDict = "";
+let nextOreDict = "";
 oresSet.forEach((ore) => {
   oreDict = generateOreDicts(tempOreSet);
-  const nextOreDict = generateOreDicts(new Set([...tempOreSet, ore]));
+  nextOreDict = generateOreDicts(new Set([...tempOreSet, ore]));
 
   if (nextOreDict.length > oreDictCardMaxLen) {
     console.log(oreDict);
@@ -525,4 +526,4 @@ oresSet.forEach((ore) => {
 
   tempOreSet.add(ore);
 });
-console.log(oreDict);
+console.log(generateOreDicts(tempOreSet));
