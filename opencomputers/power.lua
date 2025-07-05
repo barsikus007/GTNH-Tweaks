@@ -8,9 +8,12 @@ local refresh = 1 / 20
 local stopValue = 0.9
 local startValue = 0.8
 local displayMetricNumbersIfAbove = 1e15
+local showPowersInsteadOfMetric = true
 -- #endregion config
 
 local doContinue = true
+local bigInt = 2 ^ 64
+local biggerInt = 2 ^ 65
 
 local function keyPressed(event_name, producer_address, ascii, keyCode)
     if keyCode == keyboard.keys.q then
@@ -27,13 +30,23 @@ event.register("key_up", keyPressed)
 local function formatMetricNumber(number, format)
     format = format or "%.1f"
     if math.abs(number) < 1000 then return tostring(math.floor(number)) end
-    local suffixes = { "k", "M", "G", "T", "P", "E", "Z", "Y" }
+    local suffixes = { "k", "M", "G", "T", "P", "E", "Z", "Y", "R", "Q", "Q!", "Q!!", "Q!!!" }
     local power = 0
     while math.abs(number) > 1000 do
         number = number / 1000
         power = power + 1
     end
-    return tostring(string.format(format, number)) .. suffixes[power]
+    if showPowersInsteadOfMetric then
+        power = power * 3
+        while math.abs(number) > 10 do
+            number = number / 10
+            power = power + 1
+        end
+
+        return tostring(string.format(format, number)) .. "e" .. power
+    else
+        return tostring(string.format(format, number)) .. suffixes[power]
+    end
 end
 
 --- @param number number
@@ -116,6 +129,7 @@ local glasses = component.glasses
 local LSC = component.gt_machine
 local LSCSwitch = component.redstone
 local DB = component.isAvailable("database") and component.database or nil
+local tpsCard = component.isAvailable("tps_card") and component.tps_card or nil
 if DB == nil then
     print("Install 'Database Upgrade' for fancy icons!")
 end
@@ -176,6 +190,9 @@ end
 ---@param glasses glasses # The glasses component.
 local function glassesSetup(glasses)
     glasses.removeAll()
+    if tpsCard then
+        createShadowText(glasses, "tps", 240, 0)
+    end
     createShadowText(glasses, "income", 0, 1,
         { name = "universalsingularities:universal.general.singularity", damage = 20, nbt = nil })
     createShadowText(glasses, "percent", 0, 2, { name = "gregtech:gt.metaitem.01", damage = 32762, nbt = nil })
@@ -207,12 +224,21 @@ while doContinue do
     local EUInputAverage = tonumberSub(EUInputAverageText)
     local EUOutputAverage = tonumberSub(EUOutputAverageText)
     local storageStored = storageLocalStored
+    local UMVStorageMode = false
+    if storageCapacity > biggerInt then
+        UMVStorageMode = true
+    end
     if wirelessEnabled then
         local storageStoredWirelessText = extractNumber(sensorData[23])
         local storageCurrentWireless = tonumberSub(storageStoredWirelessText)
         storageStored = storageStored + storageCurrentWireless
     end
-    local storagePercent = storageStored / storageCapacity
+    local storagePercent
+    if UMVStorageMode then
+        storagePercent = storageStored / bigInt
+    else
+        storagePercent = storageStored / storageCapacity
+    end
     local EUIncome = EUInputAverage - EUOutputAverage
     if EUIncome > 0 then
         storageChargeLeft = (storageCapacity - storageStored) / EUIncome
@@ -234,16 +260,33 @@ while doContinue do
         formatMetricNumber(storageCapacity) or storageCapacityText
     local storageChargeLeftShow = humanifyTime(storageChargeLeft, 2)
 
+    local storagePercentShowText = string.format(storagePercent < 0.01 and "%.6f%%" or "%.2f%%", storagePercent * 100)
+    local storageShowText
+    if UMVStorageMode then
+        storagePercentShowText = storagePercentShowText .. " in Ultimate Batteries"
+        storageShowText = string.format("%s EU (Local: %s EU)", storageStoredShow, storageLocalStoredShow)
+    else
+        storageShowText = string.format("%s/%s EU (Local: %s EU)", storageStoredShow, storageCapacityShow,
+            storageLocalStoredShow)
+    end
+
+    if tpsCard then
+        local tps = tpsCard.convertTickTimeIntoTps(tpsCard.getOverallTickTime())
+        setShadowText("tps", string.format("OC TPS: %.2f", tps))
+    end
     setShadowText("income", string.format("%s EU/t", EUIncomeShow),
         table.unpack(EUIncome < 0 and RED_COLOR or EUIncome > 0 and GREEN_COLOR or BLACK_COLOR))
-    setShadowText("percent", string.format(storagePercent < 0.01 and "%.6f%%" or "%.2f%%", storagePercent * 100))
-    setShadowText("storage",
-        string.format("%s/%s EU (Local: %s EU)", storageStoredShow, storageCapacityShow, storageLocalStoredShow))
-    setShadowText("generator",
-        string.format("Generator %s (Dis/charge time: %s)",
-            generatorState and "Enabled" or "Disabled",
-            storageChargeLeftShow),
-        table.unpack(generatorState and GREEN_COLOR or RED_COLOR))
+    setShadowText("percent", storagePercentShowText)
+    setShadowText("storage", storageShowText)
+    if UMVStorageMode then
+        setShadowText("generator", "You Are Worthy", table.unpack(BLACK_COLOR))
+    else
+        setShadowText("generator",
+            string.format("Generator %s (Dis/charge time: %s)",
+                generatorState and "Enabled" or "Disabled",
+                storageChargeLeftShow),
+            table.unpack(generatorState and GREEN_COLOR or RED_COLOR))
+    end
 
     if storagePercent > stopValue then
         generatorState = false
