@@ -474,12 +474,24 @@ const oresArray = ores
  * @param {string[]} oresArray
  */
 const generateOreSet = (oresArray) => {
+  // TODO
+  // Line, Bastnasite Ore
+  // Line, Monazite Ore
+  // MEBF, Lead Ore
+  // MEBF, Lead Ore [End]
+  // MABS, Molybdenum Ore
+  // MABS, Molybdenum Ore [End]
   const oresSet = new Set();
   oresArray.forEach((ore) => {
     let truncatedOre = ore.replace(/\s?\[End\]/g, "");
     if (truncatedOre.endsWith("Stone")) {
       // Patch for Infused Stones in sifter
-      oresSet.add("Infused(^Gold).*");
+      oresSet.add("Infused[^(Gold)].*");
+      return;
+    }
+    if (truncatedOre.startsWith("Shadow")) {
+      // Patch for Infused Stones in sifter
+      oresSet.add("Shadow.*");
       return;
     }
     truncatedOre = truncatedOre.replace(/Ore.*/g, "").replace(/\s/g, "");
