@@ -1,6 +1,6 @@
 # GTNH Tweaks
 
-(target 2.7.3)
+(target 2.7.4)
 
 My GTNH setup and shitcoded python patcher for configs
 
@@ -153,7 +153,7 @@ To show NBT data with shift
 
 ### Remove
 
-journeymap-1.7.10-5.2.8-fairplay.jar
+- journeymap-1.7.10-5.2.8-fairplay.jar
 
 ## resourcepacks/
 
@@ -166,8 +166,8 @@ journeymap-1.7.10-5.2.8-fairplay.jar
 ### F32 fix (recheck)
 
 - rollback fonts for ClientFixer(Cyrillic font fix)
-  - GTNH-Faithful-x32.0.9.15/assets/minecraft/textures/font/
-  - GTNH-Faithful-x32.0.9.15/assets/minecraft/
+  - GTNH-Faithful-x32.v0.9.18.1/assets/minecraft/textures/font/
+  - GTNH-Faithful-x32.v0.9.18.1/assets/minecraft/
 
 ## TODO
 
