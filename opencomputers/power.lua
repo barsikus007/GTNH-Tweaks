@@ -12,8 +12,8 @@ local showPowersInsteadOfMetric = true
 -- #endregion config
 
 local doContinue = true
-local bigInt = 2 ^ 64
-local biggerInt = 2 ^ 65
+local bigInt = 2 ^ 63
+local biggerInt = 2 ^ 64
 
 local function keyPressed(event_name, producer_address, ascii, keyCode)
     if keyCode == keyboard.keys.q then
