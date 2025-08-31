@@ -127,7 +127,7 @@ local ICON_OFFSET = 14
 local generatorState = false
 local glasses = component.glasses
 local LSC = component.gt_machine
-local LSCSwitch = component.redstone
+local LSCSwitch = component.isAvailable("redstone") and component.redstone or nil
 local DB = component.isAvailable("database") and component.database or nil
 local tpsCard = component.isAvailable("tps_card") and component.tps_card or nil
 if DB == nil then
@@ -288,11 +288,11 @@ while doContinue do
             table.unpack(generatorState and GREEN_COLOR or RED_COLOR))
     end
 
-    if storagePercent > stopValue then
+    if LSCSwitch and storagePercent > stopValue then
         generatorState = false
         LSCSwitch.setOutput({ 0, 0, 0, 0, 0, 0 })
     end
-    if storagePercent < startValue then
+    if LSCSwitch and storagePercent < startValue then
         generatorState = true
         LSCSwitch.setOutput({ 15, 15, 15, 15, 15, 15 })
     end
