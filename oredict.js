@@ -475,6 +475,7 @@ const oresArray = ores
  */
 const generateOreSet = (oresArray) => {
   // TODO
+  // Cassiterite Sand -> 15s
   // Line, Bastnasite Ore
   // Line, Monazite Ore
   // MEBF, Lead Ore
@@ -484,6 +485,10 @@ const generateOreSet = (oresArray) => {
   const oresSet = new Set();
   oresArray.forEach((ore) => {
     let truncatedOre = ore.replace(/\s?\[End\]/g, "");
+    if (truncatedOre.startsWith("Rubidium")) {
+      // Remove Rubidium Ore from processing
+      return;
+    }
     if (truncatedOre.endsWith("Stone")) {
       // Patch for Infused Stones in sifter
       oresSet.add("Infused[^(Gold)].*");
@@ -494,6 +499,11 @@ const generateOreSet = (oresArray) => {
       oresSet.add("Shadow.*");
       return;
     }
+    if (truncatedOre.startsWith("DeepDarkIron")) {
+      // Patch for Deep Dark Iron
+      oresSet.add("DarkIron");
+      return;
+    }
     truncatedOre = truncatedOre.replace(/Ore.*/g, "").replace(/\s/g, "");
     // Patch for Raw ores
     truncatedOre = truncatedOre.replace("Raw", "");
@@ -502,6 +512,7 @@ const generateOreSet = (oresArray) => {
     truncatedOre = truncatedOre.replace(/\s?(235|238|239|241)/g, "");
     // Patch for GT++ ores
     truncatedOre = truncatedOre.replace(/\s?\(.*\)/g, "");
+    //? Shorten names
     // Patch for Enriched-NaquadahOxideMixture
     truncatedOre = truncatedOre.replace("NaquadahOxideMixture", "NaquadahO");
     // Patch for Chromo-Alumino-Povondraite
