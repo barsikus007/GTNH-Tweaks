@@ -148,8 +148,14 @@ To show NBT data with shift
 ### Add
 
 - [JourneyMap with radar](https://www.curseforge.com/minecraft/mc-mods/journeymap/files?version=1.7.10)
-- [Cyrillic font fix](https://github.com/gamerforEA/Minecraft-ClientFixer/releases/tag/1.0)
-  - [temporary broken](https://github.com/GTNewHorizons/Angelica/issues/497)
+- [MineMenu](https://www.curseforge.com/minecraft/mc-mods/minemenu/files?version=1.7.10)
+- [Cyrillic font fix](https://github.com/RedServer/MC-FontFix/releases/tag/v1.7.10-1.0)
+  - [set B:enableFontRenderer to false in Angelica config](https://github.com/GTNewHorizons/Angelica/issues/497)
+- [DistantHorizons](https://github.com/DarkShadow44/DistantHorizonsStandalone)
+  - [Bump UniMixins](https://github.com/LegacyModdingMC/UniMixins)
+  - [Bump Angelica](https://github.com/GTNewHorizons/Angelica)
+    - [Bump gtnhlib](https://github.com/GTNewHorizons/GTNHLib)
+  - [Bump Hodgeponge to disable fog](https://github.com/barsikus007/Hodgepodge)
 
 ### Remove
 
@@ -157,17 +163,8 @@ To show NBT data with shift
 
 ## resourcepacks/
 
-- Round Large Turbine Overlay (recheck)
-- Hidden Galacticraft Thermal Padding GT V1.0.0
-- Round Large Turbine Overlay
-- [GTNH Faithful Textures](https://github.com/Ethryan/GTNH-Faithful-Textures/releases/latest)
 - Realistic Sky GT New Horizons
-
-### F32 fix (recheck)
-
-- rollback fonts for ClientFixer(Cyrillic font fix)
-  - GTNH-Faithful-x32.v0.9.18.1/assets/minecraft/textures/font/
-  - GTNH-Faithful-x32.v0.9.18.1/assets/minecraft/
+- [GTNH Faithful Textures](https://github.com/Ethryan/GTNH-Faithful-Textures/releases/latest)
 
 ## TODO
 
@@ -179,11 +176,12 @@ To show NBT data with shift
   - add page with test tools to bookmarks
   - journeymap settings
 - Sync
+  - ../instance.cfg
+  - Distant_Horizons_server_data/
   - journeymap/data/
-  - TCNodeTracker/
-  - visualprospecting/
   - logs/
-  - screenshots/
   - saves/
     - NEI/global/bookmarks.ini
-  - ../instance.cfg
+  - screenshots/
+  - TCNodeTracker/
+  - visualprospecting/

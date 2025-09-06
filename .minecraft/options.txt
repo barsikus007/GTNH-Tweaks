@@ -15,7 +15,7 @@ difficulty:0
 fancyGraphics:true
 ao:2
 clouds:true
-resourcePacks:["GTNH-Faithful-x32.v0.9.15.zip","Hidden Galacticraft Thermal Padding GT V1.0.0.zip","Realistic Sky GT New Horizons.zip"]
+resourcePacks:["GTNH-Faithful-x32.v2.0.0.zip","Realistic Sky GT New Horizons.zip"]
 lastServer:
 lang:en_US
 chatVisibility:0
@@ -89,7 +89,7 @@ key_ALT Key:56
 key_Boost Key:23
 key_Mode Switch Key:40
 key_Side Inventory Key:0
-key_Hub Expand Key:45
+key_Hub Expand Key:0
 key_ae2wct.OpenTerminal:0
 key_ae2wct.OpenMagnetFilter:0
 key_ae2wct.SwitchMagnetMode:44
@@ -97,16 +97,17 @@ key_key.toggle_focus.desc:0
 key_Draw Weapons:0
 key_Special:0
 key_key.openCompendium:0
-key_key.personalBackpack:48
+key_key.personalBackpack:0
 key_key.betterquesting.quests:41
 key_openblocks.keybind.vario_switch:0
 key_openblocks.keybind.vario_vol_up:0
 key_openblocks.keybind.vario_vol_down:0
-key_Gravi Fly Key:37
+key_Gravi Fly Key:0
 key_Gravi Display Hud:0
 key_GraviSuite MedKit:0
-key_HoloGlasses:76
+key_HoloGlasses:0
 key_ingameinfoxml.key.toggle:39
+key_key.open_menu:19
 key_navigator.key.action:211
 key_schematica.key.load:0
 key_schematica.key.save:0
@@ -115,11 +116,11 @@ key_schematica.key.layerInc:0
 key_schematica.key.layerDec:0
 key_key.serverutilities.nbt:0
 key_key.serverutilities.trash:0
-key_keys.adventureBackpack.openInventory:50
+key_keys.adventureBackpack.openInventory:-97
 key_keys.adventureBackpack.toggleActions:0
 key_Baubles Inventory:0
 key_Change Wand Focus:33
-key_Activate Hover Harness:35
+key_Activate Hover Harness:0
 key_Misc Wand Toggle:34
 key_waila.keybind.wailaconfig:82
 key_waila.keybind.wailadisplay:79
@@ -152,17 +153,17 @@ key_Travel Staff Blink:0
 key_Automagy.key.focusCrafting:0
 key_botaniamisc.toggleLoki:38
 key_botaniamisc.ringOfLokiClear:24
-key_botaniamisc.ringOfLokiMirror:0
+key_botaniamisc.ringOfLokiMirror:37
 key_bbw.key.mode:0
 key_bbw.key.fluidmode:0
 key_ttmisc.toggleArmor:0
 key_key.materialCosts:0
 key_key.clipboardPaste:0
 key_key.placeItem:25
-key_key.toolConfig:51
+key_key.toolConfig:0
 key_key.toolProfileChange:0
 key_key.toggleFlight:0
-key_key.toggleMagnet:0
+key_key.toggleMagnet:35
 key_Unequip:0
 key_invtweaks.key.sort:0
 key_key.littletiles.rotateup:0
@@ -174,6 +175,7 @@ key_key.littletiles.mark:0
 key_key.nutrition:0
 key_key.openglasses.interact:0
 key_key.openglasses.interactToggle:0
+key_sharewhereiam.keybinding.share.name:0
 key_key.aspectMenu:0
 key_tcnodetracker.key.togglenode:0
 key_keybinding.jumptoggle:0
@@ -205,10 +207,9 @@ key_key.journeymap.zoom_out:12
 key_key.journeymap.minimap_type:0
 key_key.journeymap.minimap_preset:43
 key_key.journeymap.create_waypoint:0
-key_sharewhereiam.keybinding.KEYBINDING_SHARE_NAME:210
 key_key.craftpresence.config_keycode.name:0
 soundCategory_master:0.15
-soundCategory_music:0.05
+soundCategory_music:0.0
 soundCategory_record:1.0
 soundCategory_weather:1.0
 soundCategory_block:1.0
