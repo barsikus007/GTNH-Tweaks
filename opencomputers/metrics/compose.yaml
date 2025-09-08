@@ -1,0 +1,57 @@
+# https://discord.com/channels/181078474394566657/1356466236292075561
+services:
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - 3000:3000
+    healthcheck:
+      test: curl http://localhost:3000/api/health || exit 1
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        mkdir -p /etc/grafana/provisioning/datasources
+        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
+        apiVersion: 1
+        datasources:
+        - name: influxdb-GTNH
+          type: influxdb
+          access: proxy
+          orgId: 1
+          url: http://influxdb2:8086
+          isDefault: true
+          editable: false
+          version: 1
+          jsonData:
+            dbName: mainnet
+            httpHeaderName1: 'Authorization'
+          secureJsonData:
+            httpHeaderValue1: 'Token tokentokentokentokentoken'
+        EOF
+        /run.sh
+  influxdb2:
+    image: influxdb:2
+    container_name: influxdb2
+    ports:
+      - 8086:8086
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: namenamenamenamename
+      DOCKER_INFLUXDB_INIT_PASSWORD: passwordpasswordpasswordpassword
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: tokentokentokentokentoken
+      DOCKER_INFLUXDB_INIT_ORG: docs
+      DOCKER_INFLUXDB_INIT_BUCKET: mainnet
+      DOCKER_INFLUXDB_INIT_RETENTION: 30d
+
+      INFLUXD_UI_DISABLED: true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${APPDATA_VOLUME?}/influxdb2/data/:/var/lib/influxdb2/
+      - ${APPDATA_VOLUME?}/influxdb2/config/:/etc/influxdb2/

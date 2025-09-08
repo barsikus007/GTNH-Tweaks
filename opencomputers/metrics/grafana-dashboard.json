@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -94,32 +94,7 @@
           },
           "unit": "sci"
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "EU"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -805,7 +780,7 @@
       "type": "timeseries"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -813,379 +788,171 @@
         "y": 22
       },
       "id": 14,
-      "panels": [],
-      "title": "Fluids",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "P40FA9323B45F2157"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "litre"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Semi-Stable Antimatter"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "light-blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Condensed Raw Stellar Plasma Mixture"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-orange",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 6,
-        "y": 23
-      },
-      "id": 7,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.1.1",
-      "targets": [
+      "panels": [
         {
-          "groupBy": [
-            {
-              "params": [
-                "fluid::tag"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "fluids",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"amount\" FROM \"fluids\" WHERE \"fluid\"::tag =~ /${fluid_filter}/ AND $timeFilter GROUP BY \"fluid\"::tag",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "amount"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "fluid::tag",
-              "operator": "!=",
-              "value": "Water"
-            }
-          ]
-        }
-      ],
-      "title": "Fluids (Filtered)",
-      "transformations": [
-        {
-          "id": "renameByRegex",
-          "options": {
-            "regex": "/fluids\\.amount { fluid: (.*) }/",
-            "renamePattern": "$1"
-          }
-        }
-      ],
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "P40FA9323B45F2157"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P40FA9323B45F2157"
           },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
               },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "litre"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Semi-Stable Antimatter"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "light-blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Condensed Raw Stellar Plasma Mixture"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-orange",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Molten Universium"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Condensed Raw Stellar Plasma Mixture"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
                   "legend": false,
                   "tooltip": false,
-                  "viz": true
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
                 }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 31
-      },
-      "id": 130,
-      "options": {
-        "legend": {
-          "calcs": [
-            "diffperc",
-            "diff"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.1.1",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "fluid::tag"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "fluids",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"amount\" FROM \"fluids\" WHERE \"fluid\"::tag =~ /${fluid_filter}/ AND $timeFilter GROUP BY \"fluid\"::tag",
-          "rawQuery": false,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "amount"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "fluid::tag",
-              "operator": "=",
-              "value": "Molten Universium"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "litre"
             },
-            {
-              "condition": "OR",
-              "key": "fluid::tag",
-              "operator": "=",
-              "value": "Condensed Raw Stellar Plasma Mixture"
-            }
-          ]
-        }
-      ],
-      "title": "StarGate Fluids",
-      "transformations": [
-        {
-          "id": "renameByRegex",
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Semi-Stable Antimatter"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "light-blue",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Condensed Raw Stellar Plasma Mixture"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-orange",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 6,
+            "y": 23
+          },
+          "id": 7,
           "options": {
-            "regex": "/fluids\\.amount { fluid: (.*) }/",
-            "renamePattern": "$1"
-          }
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.1.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "fluid::tag"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "fluids",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT \"amount\" FROM \"fluids\" WHERE \"fluid\"::tag =~ /${fluid_filter}/ AND $timeFilter GROUP BY \"fluid\"::tag",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "amount"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "fluid::tag",
+                  "operator": "!=",
+                  "value": "Water"
+                }
+              ]
+            }
+          ],
+          "title": "Fluids (Filtered)",
+          "transformations": [
+            {
+              "id": "renameByRegex",
+              "options": {
+                "regex": "/fluids\\.amount { fluid: (.*) }/",
+                "renamePattern": "$1"
+              }
+            }
+          ],
+          "type": "timeseries"
         }
       ],
-      "type": "timeseries"
+      "title": "Fluids",
+      "type": "row"
     },
     {
       "collapsed": true,
@@ -1193,7 +960,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 23
       },
       "id": 53,
       "panels": [
@@ -1277,7 +1044,7 @@
             "h": 8,
             "w": 6,
             "x": 0,
-            "y": 22
+            "y": 43
           },
           "id": 54,
           "options": {
@@ -1435,7 +1202,7 @@
             "h": 8,
             "w": 6,
             "x": 6,
-            "y": 22
+            "y": 43
           },
           "id": 55,
           "options": {
@@ -1608,7 +1375,7 @@
             "h": 8,
             "w": 6,
             "x": 12,
-            "y": 22
+            "y": 43
           },
           "id": 56,
           "options": {
@@ -1796,7 +1563,7 @@
             "h": 8,
             "w": 6,
             "x": 18,
-            "y": 22
+            "y": 43
           },
           "id": 64,
           "options": {
@@ -1954,7 +1721,7 @@
             "h": 8,
             "w": 6,
             "x": 0,
-            "y": 94
+            "y": 51
           },
           "id": 65,
           "options": {
@@ -2127,7 +1894,7 @@
             "h": 8,
             "w": 6,
             "x": 6,
-            "y": 94
+            "y": 51
           },
           "id": 66,
           "options": {
@@ -2315,7 +2082,7 @@
             "h": 8,
             "w": 6,
             "x": 12,
-            "y": 94
+            "y": 51
           },
           "id": 128,
           "options": {
@@ -2518,7 +2285,7 @@
             "h": 8,
             "w": 6,
             "x": 18,
-            "y": 94
+            "y": 51
           },
           "id": 129,
           "options": {
@@ -2591,7 +2358,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 24
       },
       "id": 15,
       "panels": [],
@@ -2656,38 +2423,13 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Quantum Anomaly"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 6,
-        "y": 41
+        "y": 25
       },
       "id": 6,
       "options": {
@@ -2758,7 +2500,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 33
       },
       "id": 12,
       "panels": [],
@@ -2826,7 +2568,7 @@
         "h": 14,
         "w": 12,
         "x": 6,
-        "y": 50
+        "y": 34
       },
       "id": 10,
       "options": {
@@ -2910,10 +2652,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 6,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 48
       },
       "id": 11,
       "maxPerRow": 6,
@@ -2944,6 +2686,7 @@
       "targets": [
         {
           "groupBy": [],
+          "hide": true,
           "measurement": "cpus",
           "orderByTime": "ASC",
           "policy": "default",
@@ -2973,7 +2716,7 @@
             "uid": "P40FA9323B45F2157"
           },
           "groupBy": [],
-          "hide": false,
+          "hide": true,
           "measurement": "cpus",
           "orderByTime": "ASC",
           "policy": "default",
@@ -3084,36 +2827,36 @@
     "list": [
       {
         "current": {
-          "text": "w Tesseract|Anom",
-          "value": "w Tesseract|Anom"
+          "text": "Anom",
+          "value": "Anom"
         },
         "label": "Item Filter",
         "name": "item_filter",
         "options": [
           {
             "selected": true,
-            "text": "w Tesseract|Anom",
-            "value": "w Tesseract|Anom"
+            "text": "Anom",
+            "value": "Anom"
           }
         ],
-        "query": "w Tesseract|Anom",
+        "query": "Anom",
         "type": "textbox"
       },
       {
         "current": {
-          "text": "Antima",
-          "value": "Antima"
+          "text": "disabled",
+          "value": "disabled"
         },
         "label": "Fluid Filter",
         "name": "fluid_filter",
         "options": [
           {
             "selected": true,
-            "text": "Antima",
-            "value": "Antima"
+            "text": "disabled",
+            "value": "disabled"
           }
         ],
-        "query": "Antima",
+        "query": "disabled",
         "type": "textbox"
       },
       {
@@ -3142,12 +2885,12 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "GTNH",
+  "title": "Admin Panel",
   "uid": "feh5nybmkqg3kc",
-  "version": 15
+  "version": 21
 }
