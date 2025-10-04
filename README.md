@@ -1,6 +1,6 @@
 # GTNH Tweaks
 
-(target 2.7.4)
+(target 2.8.0)
 
 My GTNH setup and shitcoded python patcher for configs
 
@@ -63,17 +63,6 @@ B:"Lock World Generator"=true
 B:"Lock World Generator"=false
 ```
 
-### HardcoreDarkness.cfg
-
-To fix my eyes at all nights at endgame
-
-```ini
-I:Mode=0
-I:Mode=1
-S:"Dimension Blacklist"=7
-S:"Dimension Blacklist"=-1,0,1,7,180,230
-```
-
 ### InGameInfoXML/InGameInfo.xml
 
 Blood and warp monitoring for IGIXML. Paste after these lines
@@ -132,6 +121,32 @@ B:"View mode"=false
 B:"View mode"=true
 ```
 
+### AppliedEnergistics2/AppliedEnergistics2.cfg
+
+Remember my terminal setup
+
+```ini
+    S:CRAFTING_SORT_BY=NAME
+    S:CRAFTING_SORT_BY=PERCENT
+    S:PowerUnit=AE
+    S:PowerUnit=EU
+    S:SEARCH_MODE=AUTOSEARCH
+    S:SEARCH_MODE=MANUAL_SEARCH
+    S:SORT_DIRECTION=ASCENDING
+    S:SORT_DIRECTION=DESCENDING
+```
+
+### NEI/client.cfg
+
+Fix anti overlapping case I hate it
+
+```ini
+		ignorePotionOverlap=false
+		ignorePotionOverlap=true
+```
+
+```
+
 ## serverutilities/
 
 ### client/serverutilities.cfg
@@ -151,15 +166,16 @@ To show NBT data with shift
 - [MineMenu](https://www.curseforge.com/minecraft/mc-mods/minemenu/files?version=1.7.10)
 - [Cyrillic font fix](https://github.com/RedServer/MC-FontFix/releases/tag/v1.7.10-1.0)
   - [set B:enableFontRenderer to false in Angelica config](https://github.com/GTNewHorizons/Angelica/issues/497)
-- [DistantHorizons](https://github.com/DarkShadow44/DistantHorizonsStandalone)
-  - [Bump UniMixins](https://github.com/LegacyModdingMC/UniMixins)
-  - [Bump Angelica](https://github.com/GTNewHorizons/Angelica)
-    - [Bump gtnhlib](https://github.com/GTNewHorizons/GTNHLib)
-  - [Bump Hodgeponge to disable fog](https://github.com/barsikus007/Hodgepodge)
+- [DistantHorizons](https://github.com/DarkShadow44/DistantHorizonsStandalone/releases)
+- [BG FPS reducer](https://modrinth.com/mod/fps-reducer/versions?g=1.7.10)
 
 ### Remove
 
-- journeymap-1.7.10-5.2.8-fairplay.jar
+- journeymap-1.7.10-5.2.10-fairplay.jar
+
+### Alt
+
+- [Angelica 2.0 alpha](https://github.com/barsikus007/Angelica)
 
 ## resourcepacks/
 
