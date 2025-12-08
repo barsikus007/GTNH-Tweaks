@@ -1,6 +1,6 @@
 # GTNH Tweaks
 
-(target 2.8.0)
+(target 2.8.2)
 
 My GTNH setup and shitcoded python patcher for configs
 
@@ -18,7 +18,7 @@ I prefer GraalVM EE JDK 23:
 
 ### Args
 
-(if it is **failed to reserve and commit memory**, remove last line or download more RAM)
+(if it is **failed to reserve and commit memory**, remove last line or download more RAM (or enable large/huge pages in your OS, you need 4400 for 8G))
 
 ```sh
 -Dfml.readTimeout=9001
@@ -45,6 +45,8 @@ I prefer GraalVM EE JDK 23:
 
 ## config/
 
+- `diff -u /home/$USER/{Downloads/GTNH/,.local/share/PrismLauncher/instances/GTNH-6.6.6/.minecraft/}config/InGameInfoXML/InGameInfo.xml > diff`
+
 ### adventurebackpack.cfg
 
 To disable useless tanks and potions overlay
@@ -63,31 +65,69 @@ B:"Lock World Generator"=true
 B:"Lock World Generator"=false
 ```
 
+### DraconicEvolution.cfg
+
+Fix GUI mess at endgame
+
+```diff
+@@ -160,7 +160,7 @@
+         0
+         1
+         1
+         1
+-        1
++        0
+      >
+ }
+```
+
+### GregTech/Goggles.cfg
+
+Move GT goggles HUD under TPS (run game at least once to apply)
+
+```ini
+    I:"Render Offset X"=10
+    I:"Render Offset X"=0
+    I:"Render Offset Y"=40
+    I:"Render Offset Y"=430
+```
+
+### hodgepodge.cfg
+
+fix for <https://github.com/GTNewHorizons/GT-New-Horizons-Modpack/issues/22096>
+
+```ini
+    B:fixChatOpenLink=true
+    B:fixChatOpenLink=false
+```
+
 ### InGameInfoXML/InGameInfo.xml
 
 Blood and warp monitoring for IGIXML. Paste after these lines
 
-```xml
-            <var>lightfeet</var>
-            <str>{white})</str>
-        </line>
-```
+```diff
+@@ -167,6 +167,20 @@
+         </line>
+         <line>
+             <icon>
++                <str>AWWayofTime:weakBloodOrb</str>
++            </icon>
++            <str> {white}Blood: {red}{bmlp} </str>
++            <str> {white}Max Blood: {red}{bmmaxlp} </str>
++        </line>
++        <line>
++            <icon>
++                <str>Thaumcraft:ItemSanityChecker</str>
++            </icon>
++            <str> {white}TC Warp: {darkpurple}{tcwarptotal} </str>
++            <str> {white}(Perm: {gold}{tcwarpperm}, {white}Sticky: {gold}{tcwarpsticky}, {white}Temp: {gold}{tcwarptemp}{white})</str>
++        </line>
++        <line>
++            <icon>
+                 <str>witchery:mooncharm</str>
+             </icon>
+ 		<str> Moon phase: </str>
 
-```xml
-        <line>
-            <icon>
-                <str>AWWayofTime:weakBloodOrb</str>
-            </icon>
-            <str> {white}Blood: {red}{bmlp} </str>
-            <str> {white}Max Blood: {red}{bmmaxlp} </str>
-        </line>
-        <line>
-            <icon>
-                <str>Thaumcraft:ItemSanityChecker</str>
-            </icon>
-            <str> {white}TC Warp: {darkpurple}{tcwarptotal} </str>
-            <str> {white}(Perm: {gold}{tcwarpperm}, {white}Sticky: {gold}{tcwarpsticky}, {white}Temp: {gold}{tcwarptemp}{white})</str>
-        </line>
 ```
 
 ### InGameInfoXML.cfg
@@ -128,6 +168,8 @@ Remember my terminal setup
 ```ini
     S:CRAFTING_SORT_BY=NAME
     S:CRAFTING_SORT_BY=PERCENT
+    S:HIDE_STORED=NO
+    S:HIDE_STORED=YES
     S:PowerUnit=AE
     S:PowerUnit=EU
     S:SEARCH_MODE=AUTOSEARCH
@@ -141,10 +183,17 @@ Remember my terminal setup
 Fix anti overlapping case I hate it
 
 ```ini
-		ignorePotionOverlap=false
-		ignorePotionOverlap=true
+	ignorePotionOverlap=false
+	ignorePotionOverlap=true
 ```
 
+### witchery.cfg
+
+Fix GUI mess
+
+```ini
+    B:GUIOnLeft=true
+    B:GUIOnLeft=false
 ```
 
 ## serverutilities/
@@ -162,12 +211,10 @@ To show NBT data with shift
 
 ### Add
 
+- [DistantHorizons](https://github.com/DarkShadow44/DistantHorizonsStandalone/releases)
+- [FPS BG reducer](https://modrinth.com/mod/fps-reducer/versions?g=1.7.10)
 - [JourneyMap with radar](https://www.curseforge.com/minecraft/mc-mods/journeymap/files?version=1.7.10)
 - [MineMenu](https://www.curseforge.com/minecraft/mc-mods/minemenu/files?version=1.7.10)
-- [Cyrillic font fix](https://github.com/RedServer/MC-FontFix/releases/tag/v1.7.10-1.0)
-  - [set B:enableFontRenderer to false in Angelica config](https://github.com/GTNewHorizons/Angelica/issues/497)
-- [DistantHorizons](https://github.com/DarkShadow44/DistantHorizonsStandalone/releases)
-- [BG FPS reducer](https://modrinth.com/mod/fps-reducer/versions?g=1.7.10)
 
 ### Remove
 
@@ -179,13 +226,12 @@ To show NBT data with shift
 
 ## resourcepacks/
 
+- [Russian font](https://github.com/Eldrinn-Elantey/GTNH-FTI-Standard-Font/releases/latest)
 - Realistic Sky GT New Horizons
 - [GTNH Faithful Textures](https://github.com/Ethryan/GTNH-Faithful-Textures/releases/latest)
 
 ## TODO
 
-- Core
-  - migrate patcher to diff/sed-like syntax
 - Patch
   - generate HardcoreDarkness.cfg/Dimension Blacklist
     - is it working?
@@ -193,6 +239,7 @@ To show NBT data with shift
   - journeymap settings
 - Sync
   - ../instance.cfg
+    - [General].name
   - Distant_Horizons_server_data/
   - journeymap/data/
   - logs/

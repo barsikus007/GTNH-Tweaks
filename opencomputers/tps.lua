@@ -2,8 +2,8 @@
 -- Source: https://github.com/GTNewHorizons/OpenComputers/blob/master/src/main/scala/li/cil/oc/server/component/TpsCard.scala
 local term = require("term")
 local event = require("event")
-local component = require("component")
 local keyboard = require("keyboard")
+local component = require("component")
 
 local tpsCard = component.tps_card
 

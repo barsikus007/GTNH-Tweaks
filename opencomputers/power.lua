@@ -1,6 +1,6 @@
 local event = require("event");
-local component = require("component")
 local keyboard = require("keyboard")
+local component = require("component")
 
 -- #region config
 local textScale = 1
