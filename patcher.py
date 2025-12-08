@@ -93,8 +93,8 @@ def patch_config(config_folder: Path, config: dict[str, str], dry_run: bool = Tr
 
         cmd = f"cat <<EOL | patch {(config_folder / path).as_posix()}{' --dry-run' if dry_run else ''}\n{diff}\nEOL"
         print(f"Patching {path=}")
-        print(cmd)
         os.system(cmd)
+        print()
 
 
 def patch_mods(mods_folder: Path, mods: dict[str, str], dry_run: bool = True):
