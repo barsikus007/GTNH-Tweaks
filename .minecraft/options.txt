@@ -3,7 +3,7 @@ mouseSensitivity:0.5
 fov:0.5
 gamma:1000.0
 saturation:0.0
-renderDistance:16
+renderDistance:13
 guiScale:3
 particles:0
 bobView:true
@@ -15,7 +15,7 @@ difficulty:0
 fancyGraphics:true
 ao:2
 clouds:true
-resourcePacks:["GTNH-Faithful-x32.v2.1.3.zip","Realistic Sky GT New Horizons.zip"]
+resourcePacks:["GTNH-Faithful-x32.v2.1.4.zip","Realistic Sky GT New Horizons.zip","GTNH-FTI-Standard-Font.v1.0.0.zip"]
 lastServer:
 lang:en_US
 chatVisibility:0
@@ -92,21 +92,22 @@ key_Side Inventory Key:0
 key_Hub Expand Key:0
 key_ae2wct.OpenTerminal:0
 key_ae2wct.OpenMagnetFilter:0
-key_ae2wct.SwitchMagnetMode:44
-key_key.toggle_focus.desc:0
-key_Draw Weapons:0
+key_ae2wct.SwitchMagnetMode:0
+key_ae2stuff.key.mode:0
+key_backhand.swap_offhand:0
 key_Special:0
+key_key.toggle_focus.desc:0
+key_key.search_connected_inventories.desc:0
+key_key.betterquesting.quests:41
 key_key.openCompendium:0
 key_key.personalBackpack:0
-key_key.betterquesting.quests:41
-key_openblocks.keybind.vario_switch:0
-key_openblocks.keybind.vario_vol_up:0
-key_openblocks.keybind.vario_vol_down:0
 key_Gravi Fly Key:0
 key_Gravi Display Hud:0
 key_GraviSuite MedKit:0
+key_openblocks.keybind.vario_switch:0
+key_openblocks.keybind.vario_vol_up:0
+key_openblocks.keybind.vario_vol_down:0
 key_HoloGlasses:0
-key_ingameinfoxml.key.toggle:39
 key_key.open_menu:19
 key_navigator.key.action:211
 key_schematica.key.load:0
@@ -116,8 +117,6 @@ key_schematica.key.layerInc:0
 key_schematica.key.layerDec:0
 key_key.serverutilities.nbt:0
 key_key.serverutilities.trash:0
-key_keys.adventureBackpack.openInventory:-97
-key_keys.adventureBackpack.toggleActions:0
 key_Baubles Inventory:0
 key_Change Wand Focus:33
 key_Activate Hover Harness:0
@@ -127,16 +126,20 @@ key_waila.keybind.wailadisplay:79
 key_waila.keybind.liquid:80
 key_waila.keybind.recipe:81
 key_waila.keybind.usage:75
-key_key.OpenTerminal:46
+key_waila.keybind.showadvanced:42
+key_key.tarmor:0
+key_key.tgoggles:0
+key_key.tbelt:-96
+key_key.tzoom:0
+key_keys.adventureBackpack.openInventory:-97
+key_keys.adventureBackpack.toggleActions:0
+key_ae2fc.key.OpenTerminal:46
+key_ae2fc.key.Restock:0
 key_Reload Shaders:0
 key_Toggle Shaders:0
 key_Shaderpack Selection Screen:0
 key_Print GLSM Debug:0
 key_Zoom:58
-key_key.tarmor:0
-key_key.tgoggles:0
-key_key.tbelt:47
-key_key.tzoom:0
 key_Open Galaxy Map:0
 key_Open Spaceship Inventory:0
 key_Toggle Sensor Goggles Mode:0
@@ -144,6 +147,7 @@ key_Glider Toggle:0
 key_Sound Locator:0
 key_Night Vision:49
 key_Goggles of Revealing:0
+key_Trackman's Goggles:0
 key_Step Assist:0
 key_Speed:0
 key_Jump:0
@@ -157,6 +161,12 @@ key_botaniamisc.ringOfLokiMirror:37
 key_bbw.key.mode:0
 key_bbw.key.fluidmode:0
 key_ttmisc.toggleArmor:0
+key_key.craftingtweaks.rotate:0
+key_key.craftingtweaks.balance:0
+key_key.craftingtweaks.clear:0
+key_key.craftingtweaks.toggleButtons:0
+key_key.craftingtweaks.compress:0
+key_key.craftingtweaks.decompress:0
 key_key.materialCosts:0
 key_key.clipboardPaste:0
 key_key.placeItem:25
@@ -164,14 +174,25 @@ key_key.toolConfig:0
 key_key.toolProfileChange:0
 key_key.toggleFlight:0
 key_key.toggleMagnet:35
+key_key.toggleMagnetSelfPickup:0
 key_Unequip:0
-key_invtweaks.key.sort:0
+key_FpsReducer.key.guiOpen:207
+key_openmodslib.key.calc:13
+key_GT5U.power_goggles.open_config_gui:22
+key_GT5U.power_goggles.toggle_power_chart:0
+key_Open Mobs Info GUI:0
+key_ingameinfoxml.key.toggle:39
 key_key.littletiles.rotateup:0
 key_key.littletiles.rotatedown:0
 key_key.littletiles.rotateright:0
 key_key.littletiles.rotateleft:0
 key_key.littletiles.flip:0
 key_key.littletiles.mark:0
+key_key.mm-ctrl:29
+key_key.mm-cut:45
+key_key.mm-copy:46
+key_key.mm-paste:47
+key_key.mm-reset:44
 key_key.nutrition:0
 key_key.openglasses.interact:0
 key_key.openglasses.interactToggle:0
@@ -182,25 +203,30 @@ key_keybinding.jumptoggle:0
 key_keybinding.speedtoggle:0
 key_keybinding.omnitoggle:0
 key_keybinding.inertiatoggle:0
+key_keybinding.incrementmodifier:0
+key_keybinding.stepassist:0
 key_Change Arcane Lens:0
 key_Activate Morphic Fingers:0
 key_Toggle Spider Climb:0
 key_Toggle Chameleon Skin:0
-key_TG.keybind.openInv:0
-key_TG.keybind.activeaAbilities:0
-key_TG.keybind.activeAbility1:0
-key_TG.keybind.activeAbility2:0
-key_TG.keybind.activeAbility3:0
 key_visualprospecting.key.toggleore.name:0
 key_visualprospecting.key.togglefluid.name:0
+key_wg.config.activateKey:0
+key_key.gt.tool_mode_switch:52
+key_GTPacketInfiniteSpraycan.Action.TOGGLE_SHAKE_LOCK:0
 key_key.cofh.empower:0
 key_key.cofh.multimode:0
-key_key.fastBlockPlacing.desc:0
 key_key.control:0
+key_key.fastBlockPlacing.desc:0
 key_railcraft.keybind.loco.faster:0
 key_railcraft.keybind.loco.slower:0
 key_railcraft.keybind.loco.mode:0
 key_railcraft.keybind.loco.whistle:0
+key_key.sort_config:0
+key_key.sort_nogui:0
+key_key.sort_gui:-98
+key_key.dropoff:0
+key_key.bogosorter.controls_button:0
 key_key.journeymap.map_toggle:36
 key_key.journeymap.zoom_in:13
 key_key.journeymap.zoom_out:12
@@ -208,6 +234,10 @@ key_key.journeymap.minimap_type:0
 key_key.journeymap.minimap_preset:43
 key_key.journeymap.create_waypoint:0
 key_key.craftpresence.config_keycode.name:0
+key_railcraft.keybind.aura.anchor:0
+key_railcraft.keybind.aura.tuning:0
+key_railcraft.keybind.aura.surveying:0
+key_railcraft.keybind.aura.signalling:0
 soundCategory_master:0.15
 soundCategory_music:0.0
 soundCategory_record:1.0

@@ -1,6 +1,6 @@
 # GTNH Tweaks
 
-(target 2.8.2)
+(target 2.8.3)
 
 My GTNH setup and shitcoded python patcher for configs
 
@@ -339,9 +339,8 @@ To show NBT data with shift
 
 ## TODO
 
+- move from python patcher to diff completely
 - Patch
-  - generate HardcoreDarkness.cfg/Dimension Blacklist
-    - is it working?
   - add page with test tools to bookmarks
   - journeymap settings
 - Sync

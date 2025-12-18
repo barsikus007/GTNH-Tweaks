@@ -1,0 +1,233 @@
+{
+  "chat": {
+    "0": {
+      "title": "Newbie",
+      "icon": {
+        "name": "berriespp:Modifier",
+        "damage": 2
+      },
+      "action": {
+        "command": "\u0026r/jobs browse (Miner,Woodcutter,Explorer are good for start); then /rankup; then /town new \u003cname\u003e"
+      }
+    },
+    "1": {
+      "title": "TP",
+      "icon": {
+        "name": "GraviSuite:relocator",
+        "damage": 1
+      },
+      "action": {
+        "command": "\u00266Teleportation will commence in \u0026c5 seconds\u00266. Don\u0027t move."
+      }
+    },
+    "2": {
+      "title": "town help tip",
+      "icon": {
+        "name": "minecraft:gold_block",
+        "damage": 0
+      },
+      "action": {
+        "command": "type /town to see nice interactive help xD (you can hover on it)"
+      }
+    },
+    "3": {
+      "title": "TP deny",
+      "icon": {
+        "name": "GraviSuite:relocator",
+        "damage": 1
+      },
+      "action": {
+        "command": "\u00264Pending teleportation request cancelled."
+      }
+    },
+    "9": {
+      "title": "joke.message",
+      "icon": {
+        "name": "minecraft:red_mushroom",
+        "damage": 0
+      },
+      "action": {
+        "command": "chat\u0026r.message\u0026r.joke\u0026r.funny"
+      }
+    }
+  },
+  "main": {
+    "0": {
+      "title": "/",
+      "icon": {
+        "name": "minecraft:command_block_minecart",
+        "damage": 0
+      },
+      "action": {
+        "category": "/"
+      }
+    },
+    "2": {
+      "title": "Town things",
+      "icon": {
+        "name": "OpenBlocks:trophy",
+        "damage": 0
+      },
+      "action": {
+        "category": "Town things"
+      }
+    },
+    "3": {
+      "title": "/tpaccept",
+      "icon": {
+        "name": "IC2:blockMachine2",
+        "damage": 0
+      },
+      "action": {
+        "command": "/tpaccept"
+      }
+    },
+    "4": {
+      "title": "Draconic",
+      "icon": {
+        "name": "DraconicEvolution:awakenedCore",
+        "damage": 0
+      },
+      "action": {
+        "key": {
+          "key": "key.toolConfig",
+          "toggle": false
+        }
+      }
+    },
+    "5": {
+      "title": "TPS",
+      "icon": {
+        "name": "FloodLights:lightDebugTool",
+        "damage": 0
+      },
+      "action": {
+        "command": "/xu_tps"
+      }
+    },
+    "7": {
+      "title": "/nick rainbow",
+      "icon": {
+        "name": "minecraft:wool",
+        "damage": 12
+      },
+      "action": {
+        "command": "/nick \u00261b\u00262a\u00263r\u00264s\u00265i\u00266k\u00267u\u00268s\u002690\u0026a0\u0026b7"
+      }
+    },
+    "8": {
+      "title": "!",
+      "icon": {
+        "name": "OpenComputers:keyboard",
+        "damage": 0
+      },
+      "action": {
+        "category": "chat"
+      }
+    },
+    "9": {
+      "title": "/nick",
+      "icon": {
+        "name": "minecraft:wool",
+        "damage": 12
+      },
+      "action": {
+        "command": "/nick \u00267barsikus007"
+      }
+    }
+  },
+  "Town things": {
+    "0": {
+      "title": "Select OW Town",
+      "icon": {
+        "name": "appliedenergistics2:item.ItemFacade",
+        "damage": 0
+      },
+      "action": {
+        "command": "/town select Barsawood"
+      }
+    },
+    "1": {
+      "title": "Passport",
+      "icon": {
+        "name": "BiblioCraft:item.BiblioClipboard",
+        "damage": 0
+      },
+      "action": {
+        "command": "/town res barsikus007"
+      }
+    },
+    "2": {
+      "title": "Enter Allow",
+      "icon": {
+        "name": "ProjRed|Illumination:projectred.illumination.lamp",
+        "damage": 29
+      },
+      "action": {
+        "command": "/town perm set enter true"
+      }
+    },
+    "3": {
+      "title": "Enter Deny",
+      "icon": {
+        "name": "ProjRed|Illumination:projectred.illumination.lamp",
+        "damage": 30
+      },
+      "action": {
+        "command": "/town perm set enter false"
+      }
+    },
+    "4": {
+      "title": "Town Perms",
+      "icon": {
+        "name": "miscutils:particleBase",
+        "damage": 24
+      },
+      "action": {
+        "command": "/town perm list"
+      }
+    },
+    "5": {
+      "title": "Select Void Town",
+      "icon": {
+        "name": "personalspace:personalPortal",
+        "damage": 0
+      },
+      "action": {
+        "command": "/town select Barselona"
+      }
+    }
+  },
+  "/": {
+    "1": {
+      "title": "Jobs Today",
+      "icon": {
+        "name": "ProjRed|Expansion:projectred.expansion.plan",
+        "damage": 0
+      },
+      "action": {
+        "command": "/jobs limit"
+      }
+    },
+    "3": {
+      "title": "Balance",
+      "icon": {
+        "name": "miscutils:itemGenericToken",
+        "damage": 0
+      },
+      "action": {
+        "command": "/bal"
+      }
+    },
+    "4": {
+      "title": "AFK",
+      "icon": {
+        "name": "GalaxySpace:item.RocketControlComputer",
+        "damage": 1
+      },
+      "action": {
+        "command": "/list"
+      }
+    }
+  }
+}

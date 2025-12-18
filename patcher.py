@@ -132,7 +132,7 @@ def main(minecraft_home: Path, *, dry_run: bool = True):
 
 
 if __name__ == "__main__":
-    TARGET_VERSION = "2.8.2"
+    TARGET_VERSION = "2.8.3"
     DEFAULT_PATH = rf"C:\Users\Admin\scoop\apps\prismlauncher\current\instances\GTNH-{TARGET_VERSION}\.minecraft"
     DEFAULT_PATH = f"/home/ogurez/.local/share/PrismLauncher/instances/GTNH-{TARGET_VERSION}/.minecraft"
     print(f"GTNH patcher target version: {TARGET_VERSION}")
