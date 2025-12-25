@@ -6,40 +6,30 @@ My GTNH setup and shitcoded python patcher for configs
 
 ## Java
 
-I prefer GraalVM EE JDK 23:
-
-`scoop install graalvm-oracle-jdk` on Windows, find it yourself on Linux
+`scoop install openjdk` on Windows, find it yourself on Linux (`jdk25` on NixOS)
 
 ### RAM
 
-```bash
--Xms8G -Xmx8G
+```shell
+-Xms8G
+-Xmx8G
 ```
 
 ### Args
 
-(if it is **failed to reserve and commit memory**, remove last line or download more RAM (or enable large/huge pages in your OS, you need 4400 for 8G))
-
-```sh
+```shell
 -Dfml.readTimeout=9001
--XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:-DontCompileHugeMethods -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+EagerJVMCI -Dgraal.TuneInlinerExploration=1
--XX:+UseG1GC -XX:MaxGCPauseMillis=37 -XX:+PerfDisableSharedMem -XX:G1HeapRegionSize=16M -XX:G1NewSizePercent=23 -XX:G1ReservePercent=20 -XX:SurvivorRatio=32 -XX:G1MixedGCCountTarget=3 -XX:G1HeapWastePercent=20 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1RSetUpdatingPauseTimePercent=0 -XX:MaxTenuringThreshold=1 -XX:G1SATBBufferEnqueueingThresholdPercent=30 -XX:G1ConcMarkStepDurationMillis=5.0 -XX:GCTimeRatio=99 -XX:AllocatePrefetchStyle=3
--XX:+UseLargePages -XX:LargePageSizeInBytes=2m
+-XX:+UseZGC
+-XX:+UseCompactObjectHeaders
 ```
 
 <details>
   <summary>Info</summary>
 
-  Default GTNH tunes GC a little bit, but my memory is leaking by default. [They wiki references](https://gtnh.miraheze.org/wiki/Installing_and_Migrating#Java_Arguments_for_Java_8) to repo with JVM args research, [but it wasn't updated for long](https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks/issues/53), so someone made fork and then remastered it:
+  Default GTNH tunes GC a little bit, but my memory is leaking by default. [They wiki references](https://gtnh.miraheze.org/wiki/Installing_and_Migrating#Java_Arguments_for_Java_8) to repo with JVM args research, [but it wasn't updated for long](https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks/issues/53), so someone [made fork](https://github.com/Mukul1127/Minecraft-Java-Flags) and then remastered it, but now it got EOL with reference to <https://exa.y2k.diy/garden/jvm-args/>
 
-  <https://github.com/Mukul1127/Minecraft-Java-Flags>
-
-  For my case I used these sections
-
-  0. `-Dfml.readTimeout=9001` for fixing `Timed out` errors if enabled on server
-  1. #GraalVM 17+
-  2. #Client G1GC
-  3. #Large Pages
+  P.S: `-Dfml.readTimeout=9001` for fixing `Timed out` errors if enabled on server
+     TODO: NEED TO TEST
 
 </details>
 
