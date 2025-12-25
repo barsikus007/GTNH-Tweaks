@@ -1,6 +1,6 @@
 # GTNH Tweaks
 
-(target 2.8.3)
+(target 2.8.4)
 
 My GTNH setup and shitcoded python patcher for configs
 
@@ -106,13 +106,14 @@ Fix GUI mess at endgame
 
 ### GregTech/Goggles.cfg
 
-Move GT goggles HUD under TPS (run game at least once to apply)
+Move GT goggles HUD under TPS (file is created if you used goggles before, remove it to apply)
 
-```ini
-    I:"Render Offset X"=10
-    I:"Render Offset X"=0
-    I:"Render Offset Y"=40
-    I:"Render Offset Y"=430
+```diff
+@@ -0,0 +1,4 @@
++general {
++    I:"Render Offset X"=0
++    I:"Render Offset Y"=430
++}
 ```
 
 ### hodgepodge.cfg
@@ -282,9 +283,16 @@ Remember my terminal setup
 
 Fix anti overlapping case I hate it
 
-```ini
-	ignorePotionOverlap=false
-	ignorePotionOverlap=true
+```diff
+@@ -34,7 +34,7 @@
+ 	#Enable/Disable Bookmark Panel
+ 	enabled=true
+ 	#Ignore overlap with potion effect HUD
+-	ignorePotionOverlap=false
++	ignorePotionOverlap=true
+ 	recipeChainDir=1
+ 	#Show recipe tooltips in Bookmarks
+ 	recipeTooltipsMode=1
 ```
 
 ### witchery.cfg
@@ -309,9 +317,16 @@ Fix GUI mess
 
 To show NBT data with shift
 
-```ini
-    B:item_nbt=false
-    B:item_nbt=true
+```diff
+@@ -8,7 +8,7 @@
+     I:button_nighttime=18000
+ 
+     # Show item NBT in inventory. [default: false]
+-    B:item_nbt=false
++    B:item_nbt=true
+ 
+     # Show item Ore Dictionary names in inventory. [default: false]
+     B:item_ore_names=false
 ```
 
 ## mods/
@@ -339,7 +354,6 @@ To show NBT data with shift
 
 ## TODO
 
-- move from python patcher to diff completely
 - Patch
   - add page with test tools to bookmarks
   - journeymap settings

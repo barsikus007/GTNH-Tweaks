@@ -177,7 +177,7 @@ key_key.toggleMagnet:35
 key_key.toggleMagnetSelfPickup:0
 key_Unequip:0
 key_FpsReducer.key.guiOpen:207
-key_openmodslib.key.calc:13
+key_openmodslib.key.calc:0
 key_GT5U.power_goggles.open_config_gui:22
 key_GT5U.power_goggles.toggle_power_chart:0
 key_Open Mobs Info GUI:0
